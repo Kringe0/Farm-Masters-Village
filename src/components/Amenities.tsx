@@ -50,10 +50,9 @@ const Amenities = () => {
                 <img 
                   src={publicAssetUrl(item.image)}
                   alt={item.title} 
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80&w=800";
-                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/20 to-transparent opacity-90"></div>
                 

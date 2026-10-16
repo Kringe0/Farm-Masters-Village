@@ -28,13 +28,12 @@ const Hero = () => {
     <section id="home" className="relative min-h-[92svh] flex items-center overflow-hidden bg-emerald-950">
       {/* Background Layer */}
       <div className="absolute inset-0 z-0">
-        <img 
+        <img
           src={publicAssetUrl("hero-bg.jpg")}
-          alt="Farm Masters Village III Landscape" 
-          className="w-full h-full object-cover object-center md:object-center animate-slow-zoom"
-          onError={(e) => {
-            e.currentTarget.src = "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=2000";
-          }}
+          alt="Brand-new home at Farm Masters Village III"
+          fetchPriority="high"
+          decoding="async"
+          className="w-full h-full object-cover object-center animate-slow-zoom"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/80 via-emerald-950/40 to-emerald-950/90"></div>
       </div>
@@ -52,7 +51,7 @@ const Hero = () => {
               </div>
               
               <span className="text-[10px] md:text-xs font-semibold tracking-[0.12em] uppercase text-white/90">
-                Farm Masters Village III <span className="text-white/40 mx-1">·</span> San Miguel, Bulacan
+                Featured brand-new home <span className="text-white/40 mx-1">·</span> San Miguel, Bulacan
               </span>
 
               <Sparkles size={12} className="text-amber-300 group-hover:rotate-12 transition-transform md:w-[14px] md:h-[14px]" />
@@ -60,21 +59,53 @@ const Hero = () => {
           </div>
 
           <h1 className="text-[clamp(2.8rem,7vw,5.8rem)] font-semibold text-white leading-[1.04] tracking-[-0.055em] mb-6 md:mb-7">
-            A home for a<br className="hidden sm:block" /> more peaceful life.
+            A brand-new home<br className="hidden sm:block" /> for a peaceful life.
           </h1>
 
           <p className="text-base md:text-xl text-white/75 mb-8 md:mb-10 leading-relaxed max-w-2xl font-normal">
-            Discover thoughtfully planned homes in a welcoming, flood-free community in San Miguel, Bulacan.
+            Find room to grow in Farm Masters Village, San Miguel, Bulacan. Explore the home, get the details, and arrange a personal viewing.
           </p>
+
+          <div className="mb-8 grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-0 max-w-4xl border-y border-white/20 py-4">
+            <div className="col-span-2 sm:col-span-1 sm:pr-4 sm:border-r border-white/20">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-white/60">Asking price</p>
+              <p className="mt-1 text-xl md:text-2xl font-semibold text-white">₱3,500,000</p>
+            </div>
+            {[
+              { label: "Bedrooms", value: "3" },
+              { label: "Bathrooms", value: "2" },
+              { label: "Lot area", value: "120 sqm" },
+              { label: "Floor area", value: "80 sqm" },
+            ].map((detail) => (
+              <div key={detail.label} className="sm:px-4 sm:border-r last:border-r-0 border-white/20">
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-white/60">{detail.label}</p>
+                <p className="mt-1 text-base md:text-lg font-semibold text-white">{detail.value}</p>
+              </div>
+            ))}
+            <span className="col-span-2 sm:hidden inline-flex items-center gap-2 text-xs font-medium text-emerald-100">
+              <CheckCircle2 size={14} aria-hidden="true" /> Brand-new condition
+            </span>
+          </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <Button 
               asChild
               className="bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg px-7 py-6 h-auto text-sm md:text-base font-semibold shadow-xl shadow-black/15 transition-colors w-full sm:w-auto"
             >
+              <Link to="/#properties">
+                <Home className="mr-2" size={18} />
+                View property details
+              </Link>
+            </Button>
+
+            <Button
+              asChild
+              variant="outline"
+              className="bg-white/10 border-white/30 text-white hover:bg-white/20 hover:text-white rounded-lg px-6 py-6 h-auto text-sm font-semibold transition-colors w-full sm:w-auto"
+            >
               <Link to="/contact">
-                <MessageSquare className="mr-3" size={20} />
-                Explore available homes
+                <MessageSquare className="mr-2" size={18} />
+                Schedule a viewing
               </Link>
             </Button>
             
@@ -84,6 +115,7 @@ const Hero = () => {
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex-1 sm:flex-none w-12 h-12 bg-white/10 text-white rounded-lg flex items-center justify-center border border-white/20 hover:bg-white/20 transition-colors"
+                aria-label="Chat with us on Messenger"
                 title="Chat on Messenger"
               >
                 <MessageCircle size={24} />
@@ -92,6 +124,7 @@ const Hero = () => {
               <a 
                 href="tel:09760638627" 
                 className="flex-1 sm:flex-none w-12 h-12 bg-white text-emerald-900 rounded-lg flex items-center justify-center hover:bg-emerald-50 transition-colors"
+                aria-label="Call 0976 063 8627"
                 title="Call Now"
               >
                 <Phone size={24} />
@@ -99,25 +132,15 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Trust Bar - Improved Mobile Layout */}
-          <div className="mt-12 md:mt-16 w-full max-w-4xl">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-5 gap-x-4 border-t border-white/20 pt-6 md:pt-7">
-              {[
-                { icon: ShieldCheck, text: "Flood Free" },
-                { icon: CheckCircle2, text: "Pag-IBIG Ready" },
-                { icon: Home, text: "Modern Units" },
-                { icon: Building2, text: "Amenities" }
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-center gap-2.5 group cursor-default">
-                  <div className="w-8 h-8 rounded-lg bg-white/10 flex-shrink-0 flex items-center justify-center text-emerald-300 border border-white/10">
-                    <item.icon size={17} />
-                  </div>
-                  <span className="text-white/80 font-medium text-[10px] md:text-xs leading-tight">
-                    {item.text}
-                  </span>
-                </div>
-              ))}
-            </div>
+          <div className="mt-5 hidden sm:flex items-center gap-2 text-xs text-white/75">
+            <CheckCircle2 size={15} className="text-emerald-300" aria-hidden="true" />
+            Brand-new condition
+            <span className="mx-1 text-white/30">·</span>
+            <ShieldCheck size={15} className="text-emerald-300" aria-hidden="true" />
+            Flood-free community
+            <span className="mx-1 text-white/30">·</span>
+            <Building2 size={15} className="text-emerald-300" aria-hidden="true" />
+            Community amenities
           </div>
         </div>
       </div>

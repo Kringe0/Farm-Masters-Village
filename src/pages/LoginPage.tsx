@@ -33,8 +33,9 @@ const LoginPage = () => {
 
       showSuccess("Welcome back, Admin!");
       navigate(from, { replace: true });
-    } catch (error: any) {
-      showError(error.message || "Invalid login credentials");
+    } catch (error: unknown) {
+      console.error("Login attempt failed:", error);
+      showError(error instanceof Error ? error.message : "Invalid login credentials");
     } finally {
       setLoading(false);
     }
@@ -66,12 +67,14 @@ const LoginPage = () => {
           <CardContent className="p-8">
             <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-emerald-900/50 ml-1">Email Address</label>
+                <label htmlFor="admin-email" className="text-[10px] font-black uppercase tracking-widest text-emerald-900/50 ml-1">Email Address</label>
                 <div className="relative">
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-400" size={18} />
                   <Input 
+                    id="admin-email"
                     type="email" 
                     placeholder="admin@farmmasters.com" 
+                    autoComplete="username"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="pl-12 h-14 rounded-xl border-emerald-100 bg-emerald-50/30 focus-visible:ring-emerald-600"
@@ -81,12 +84,14 @@ const LoginPage = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-emerald-900/50 ml-1">Password</label>
+                <label htmlFor="admin-password" className="text-[10px] font-black uppercase tracking-widest text-emerald-900/50 ml-1">Password</label>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-400" size={18} />
                   <Input 
+                    id="admin-password"
                     type="password" 
                     placeholder="••••••••" 
+                    autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="pl-12 h-14 rounded-xl border-emerald-100 bg-emerald-50/30 focus-visible:ring-emerald-600"

@@ -2,16 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Home, MapPin, UserCheck, LogOut, LayoutDashboard, Sparkles, Route } from 'lucide-react';
+import type { User } from '@supabase/supabase-js';
 import Logo from './Logo';
 import { cn } from '@/lib/utils';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
-import { showSuccess } from '@/utils/toast';
+import { showError, showSuccess } from '@/utils/toast';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,6 +23,8 @@ const Navbar = () => {
     // Check auth status
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+    }).catch((error: unknown) => {
+      console.error("Failed to check authentication session:", error);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -39,9 +42,15 @@ const Navbar = () => {
   }, [location.pathname, location.hash]);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    showSuccess("Logged out successfully");
-    navigate('/');
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      showSuccess("Logged out successfully");
+      navigate('/');
+    } catch (error: unknown) {
+      console.error("Failed to log out:", error);
+      showError("Unable to log out. Please try again.");
+    }
   };
 
   const navLinks = [

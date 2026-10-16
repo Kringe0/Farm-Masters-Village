@@ -3,7 +3,19 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts"
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
 }
+
+const htmlEscapes: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+}
+
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>"']/g, (character) => htmlEscapes[character] ?? character)
 
 serve(async (req) => {
   // Handle CORS
@@ -12,11 +24,70 @@ serve(async (req) => {
   }
 
   try {
-    const { record } = await req.json()
+    if (req.method !== 'POST') {
+      return new Response(
+        JSON.stringify({ error: 'Method not allowed' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 405 }
+      )
+    }
+
+    let body: unknown
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(
+        JSON.stringify({ error: 'Invalid JSON body' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+
+    if (!body || typeof body !== 'object' || !('record' in body)) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid inquiry record' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+
+    const record = body.record
+    if (!record || typeof record !== 'object') {
+      return new Response(
+        JSON.stringify({ error: 'Invalid inquiry record' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+    const inquiry = record as Record<string, unknown>
+    const name = typeof inquiry.name === 'string' ? inquiry.name.trim() : ''
+    const email = typeof inquiry.email === 'string' ? inquiry.email.trim() : ''
+    const phone = typeof inquiry.phone === 'string' ? inquiry.phone.trim() : ''
+    const interest = typeof inquiry.interest === 'string' ? inquiry.interest.trim() : ''
+    const message = typeof inquiry.message === 'string' ? inquiry.message.trim() : ''
+
+    if (
+      name.length < 2 ||
+      name.length > 100 ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+      email.length > 254 ||
+      !/^[+]?[0-9][0-9\s().-]{6,19}$/.test(phone) ||
+      interest.length === 0 ||
+      interest.length > 100 ||
+      message.length < 10 ||
+      message.length > 2000
+    ) {
+      return new Response(
+        JSON.stringify({ error: 'Inquiry fields are invalid' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+
+    const safeName = escapeHtml(name)
+    const safeEmail = escapeHtml(email)
+    const safePhone = escapeHtml(phone)
+    const safeInterest = escapeHtml(interest)
+    const safeMessage = escapeHtml(message)
     const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
     const RESEND_AUDIENCE_ID = Deno.env.get('RESEND_AUDIENCE_ID')
 
-    console.log("[notify-admin] Function triggered for inquiry:", record?.id)
+    console.log("[notify-admin] Function triggered for inquiry:", inquiry.id)
 
     if (!RESEND_API_KEY) {
       console.error("[notify-admin] ERROR: RESEND_API_KEY is not found in secrets.")
@@ -37,7 +108,7 @@ serve(async (req) => {
       body: JSON.stringify({
         from: 'Farm Masters Village <inquiries@farmmastersvillage.com.ph>',
         to: ['analizacatacutan24@gmail.com'], 
-        subject: `🏠 New Property Inquiry: ${record.name} - ${record.interest}`,
+        subject: `🏠 New Property Inquiry: ${name.replace(/[\r\n]+/g, ' ')} - ${interest.replace(/[\r\n]+/g, ' ')}`,
         html: `
           <!DOCTYPE html>
           <html>
@@ -84,7 +155,7 @@ serve(async (req) => {
                                   <td style="font-size: 11px; font-weight: 900; color: #059669; text-transform: uppercase; letter-spacing: 1.5px; padding-bottom: 6px;">Client Name</td>
                                 </tr>
                                 <tr>
-                                  <td style="font-size: 20px; font-weight: 800; color: #0f172a; padding-bottom: 25px;">${record.name}</td>
+                                  <td style="font-size: 20px; font-weight: 800; color: #0f172a; padding-bottom: 25px;">${safeName}</td>
                                 </tr>
                                 
                                 <tr>
@@ -92,7 +163,7 @@ serve(async (req) => {
                                 </tr>
                                 <tr>
                                   <td style="font-size: 16px; font-weight: 700; color: #0f172a; padding-bottom: 25px;">
-                                    <span style="background-color: #d1fae5; color: #065f46; padding: 6px 14px; border-radius: 10px; font-size: 14px; border: 1px solid #a7f3d0;">${record.interest}</span>
+                                    <span style="background-color: #d1fae5; color: #065f46; padding: 6px 14px; border-radius: 10px; font-size: 14px; border: 1px solid #a7f3d0;">${safeInterest}</span>
                                   </td>
                                 </tr>
 
@@ -102,11 +173,11 @@ serve(async (req) => {
                                       <tr>
                                         <td width="50%" style="padding-top: 20px;">
                                           <div style="font-size: 11px; font-weight: 900; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; padding-bottom: 6px;">Phone Number</div>
-                                          <div style="font-size: 15px; font-weight: 700; color: #0f172a;">${record.phone}</div>
+                                          <div style="font-size: 15px; font-weight: 700; color: #0f172a;">${safePhone}</div>
                                         </td>
                                         <td width="50%" style="padding-top: 20px;">
                                           <div style="font-size: 11px; font-weight: 900; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; padding-bottom: 6px;">Email Address</div>
-                                          <div style="font-size: 15px; font-weight: 700; color: #0f172a;">${record.email}</div>
+                                          <div style="font-size: 15px; font-weight: 700; color: #0f172a;">${safeEmail}</div>
                                         </td>
                                       </tr>
                                     </table>
@@ -121,7 +192,7 @@ serve(async (req) => {
                         <div style="margin-top: 40px;">
                           <div style="font-size: 11px; font-weight: 900; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; padding-bottom: 10px;">Client Message</div>
                           <div style="font-size: 16px; color: #334155; line-height: 1.7; font-style: italic; background-color: #ffffff; border-left: 5px solid #10b981; padding: 20px 25px; border-radius: 0 12px 12px 0; background-color: #f0fdf4;">
-                            "${record.message}"
+                            "${safeMessage}"
                           </div>
                         </div>
 
@@ -167,7 +238,7 @@ serve(async (req) => {
     if (RESEND_AUDIENCE_ID) {
       console.log("[notify-admin] Adding contact to audience ID:", RESEND_AUDIENCE_ID)
       
-      const nameParts = record.name.trim().split(' ')
+      const nameParts = name.split(' ')
       const firstName = nameParts[0]
       const lastName = nameParts.slice(1).join(' ') || ''
 
@@ -178,7 +249,7 @@ serve(async (req) => {
           'Authorization': `Bearer ${RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          email: record.email,
+          email,
           first_name: firstName,
           last_name: lastName,
           unsubscribed: false,
@@ -198,9 +269,10 @@ serve(async (req) => {
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
     )
   } catch (error) {
-    console.error("[notify-admin] Unexpected Error:", error.message)
+    const message = error instanceof Error ? error.message : "Unexpected error"
+    console.error("[notify-admin] Unexpected Error:", message)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: message }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
     )
   }

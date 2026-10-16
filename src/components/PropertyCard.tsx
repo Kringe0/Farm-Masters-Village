@@ -24,6 +24,8 @@ import {
   DialogContent,
   DialogTrigger,
   DialogClose,
+  DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 
 interface FinancingOption {
@@ -67,7 +69,7 @@ const Watermark = ({ size = 'md' }: { size?: 'xs' | 'sm' | 'md' | 'lg' }) => {
       <span className={cn(
         "text-white/30 font-bold tracking-widest -rotate-12 drop-shadow-md border-white/20 whitespace-nowrap",
         sizeClasses[size]
-      )} style={{ fontFamily: "'Dancing Script', cursive" }}>
+      )} style={{ fontFamily: "cursive" }}>
         Analiza Catacutan
       </span>
     </div>
@@ -129,13 +131,17 @@ const PropertyCard = ({
     <>
       <Card className="group overflow-hidden border border-stone-200 bg-white flex flex-col h-full transition-all duration-300 hover:shadow-xl hover:shadow-stone-900/5 hover:border-emerald-900/25 rounded-2xl">
         {/* Image Section */}
-        <div 
-          className="relative h-60 md:h-64 overflow-hidden cursor-zoom-in group/img"
+        <button
+          type="button"
+          aria-label={`View photos of ${title}`}
+          className="relative block w-full h-60 md:h-64 overflow-hidden cursor-zoom-in group/img text-left"
           onClick={() => openLightbox([image], 0)}
         >
           <img 
             src={publicAssetUrl(image)}
             alt={title} 
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/20 to-transparent"></div>
@@ -153,7 +159,7 @@ const PropertyCard = ({
               {tag}
             </Badge>
           </div>
-        </div>
+        </button>
 
         {/* Content Section */}
         <CardContent className="p-6 md:p-8 flex-grow flex flex-col">
@@ -221,6 +227,8 @@ const PropertyCard = ({
               </button>
             </DialogTrigger>
             <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border-none shadow-2xl z-[150] p-0 [&>button:not([data-custom-close])]:hidden">
+              <DialogTitle className="sr-only">{title} details</DialogTitle>
+              <DialogDescription className="sr-only">Property photos, features, and pricing information.</DialogDescription>
               {/* Professional Custom Close Button - Fixed Position */}
               <DialogClose 
                 data-custom-close="true"
@@ -298,7 +306,7 @@ const PropertyCard = ({
                                   className="group/gallery relative cursor-zoom-in overflow-hidden rounded-[1.5rem] md:rounded-[2rem] aspect-video shadow-md"
                                   onClick={() => openLightbox(interiorImages, idx)}
                                 >
-                                  <img src={publicAssetUrl(img)} alt="Interior" className="w-full h-full object-cover transition-transform duration-700 group-hover/gallery:scale-110" />
+                                  <img src={publicAssetUrl(img)} alt={`${title} interior view ${idx + 1}`} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 group-hover/gallery:scale-110" />
                                   <Watermark size="xs" />
                                   <div className="absolute inset-0 bg-emerald-950/20 opacity-0 group-hover/gallery:opacity-100 transition-opacity flex items-center justify-center">
                                     <ZoomIn className="text-white" size={24} />

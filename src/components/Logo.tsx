@@ -30,10 +30,6 @@ const Logo = ({ className, variant = 'dark', forceLightText }: LogoProps) => {
           src={publicAssetUrl("logo.png")}
           alt="Farm Masters Village III Logo" 
           className="relative z-10 object-contain transition-all w-full h-full scale-125"
-          onError={(e) => {
-            const target = e.currentTarget;
-            target.src = "https://placehold.co/100x100/064e3b/white?text=FMV";
-          }}
         />
       </div>
 

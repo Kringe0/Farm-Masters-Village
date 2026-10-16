@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Facebook,
   MapPin, 
@@ -19,7 +20,7 @@ const Footer = () => {
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-10 lg:gap-4">
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-10 lg:gap-8">
           
           {/* Brand & Description */}
           <div className="flex flex-col items-center lg:items-start max-w-xs text-center lg:text-left">
@@ -56,12 +57,20 @@ const Footer = () => {
             </div>
           </div>
 
+          <nav aria-label="Footer navigation" className="flex flex-wrap justify-center gap-x-5 gap-y-3 text-xs font-medium text-white/70">
+            <Link to="/#properties" className="hover:text-white transition-colors">Homes</Link>
+            <Link to="/#highlights" className="hover:text-white transition-colors">Neighborhood</Link>
+            <Link to="/#visit" className="hover:text-white transition-colors">Location</Link>
+            <Link to="/contact" className="hover:text-white transition-colors">Schedule a viewing</Link>
+          </nav>
+
           {/* Social Links */}
-          <div className="flex gap-3">
+          <div className="flex gap-3" aria-label="Social media">
             <a 
               href="https://www.facebook.com/fmastersv" 
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Farm Masters Village on Facebook"
               className="w-10 h-10 bg-white/5 text-emerald-400 rounded-xl flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all duration-300 border border-white/5"
             >
               <Facebook size={18} />
@@ -77,7 +86,6 @@ const Footer = () => {
               &copy; {currentYear} Farm Masters Village III
             </p>
           </div>
-          
         </div>
       </div>
     </footer>

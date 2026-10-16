@@ -18,38 +18,38 @@ const Contact = () => {
     const formData = new FormData(e.currentTarget);
     
     const payload = {
-      name: formData.get('fullname'),
-      email: formData.get('email'),
-      phone: formData.get('phone'),
-      interest: formData.get('interest'),
-      message: formData.get('message'),
+      name: String(formData.get('fullname') ?? '').trim(),
+      email: String(formData.get('email') ?? '').trim(),
+      phone: String(formData.get('phone') ?? '').trim(),
+      interest: String(formData.get('interest') ?? '').trim(),
+      message: String(formData.get('message') ?? '').trim(),
     };
 
     try {
       // 1. Save to Database
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('inquiries')
-        .insert([payload])
-        .select();
+        .insert([payload]);
 
       if (error) throw error;
 
       // 2. Trigger Notification Function
       try {
-        // Use just the function name 'notify-admin'
-        // The Supabase client automatically handles the base URL
-        await supabase.functions.invoke('notify-admin', {
-          body: { record: data[0] }
+        const { error: notificationError } = await supabase.functions.invoke('notify-admin', {
+          body: { record: payload }
         });
-      } catch (fnError) {
-        console.error("Notification trigger failed:", fnError);
+        if (notificationError) {
+          console.error("Notification trigger failed:", notificationError);
+        }
+      } catch (notificationError) {
+        console.error("Notification trigger failed:", notificationError);
       }
 
       showSuccess("Thank you! Your inquiry has been received.");
       (e.target as HTMLFormElement).reset();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Submission error:", error);
-      showError("Failed to send inquiry. Please try again later.");
+      showError("We couldn't send your inquiry. Please try again or contact us by phone.");
     } finally {
       setIsSubmitting(false);
     }
@@ -122,23 +122,30 @@ const Contact = () => {
 
           <div className="lg:col-span-7">
             <div className="bg-white rounded-2xl p-6 md:p-10 shadow-xl text-stone-900">
-              <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+              <form onSubmit={handleSubmit} aria-busy={isSubmitting} className="space-y-6 md:space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   <div className="space-y-2 md:space-y-3">
-                    <label className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Full name</label>
+                    <label htmlFor="inquiry-name" className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Full name</label>
                     <Input 
+                      id="inquiry-name"
                       name="fullname"
                       placeholder="Enter your name" 
+                      autoComplete="name"
+                      minLength={2}
+                      maxLength={100}
                       className="h-12 bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
                       required 
                     />
                   </div>
                   <div className="space-y-2 md:space-y-3">
-                    <label className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Email address</label>
+                    <label htmlFor="inquiry-email" className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Email address</label>
                     <Input 
+                      id="inquiry-email"
                       name="email"
                       type="email" 
                       placeholder="email@example.com" 
+                      autoComplete="email"
+                      maxLength={254}
                       className="h-12 bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
                       required 
                     />
@@ -147,20 +154,28 @@ const Contact = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   <div className="space-y-2 md:space-y-3">
-                    <label className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Phone number</label>
+                    <label htmlFor="inquiry-phone" className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Phone number</label>
                     <Input 
+                      id="inquiry-phone"
                       name="phone"
-                      placeholder="+63 900 000 0000" 
+                      type="tel"
+                      autoComplete="tel"
+                      placeholder="+63 900 000 0000"
+                      pattern="[+]?[0-9][0-9\s.\(\)\-]{6,19}"
+                      title="Enter a valid phone number using digits, spaces, parentheses, or hyphens."
                       className="h-12 bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
                       required 
                     />
                   </div>
                   <div className="space-y-2 md:space-y-3">
-                    <label className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Interested in</label>
+                    <label htmlFor="inquiry-interest" className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Interested in</label>
                     <select 
+                      id="inquiry-interest"
                       name="interest"
+                      required
                       className="w-full h-12 bg-stone-50 border border-stone-200 text-stone-900 focus:ring-2 focus:ring-emerald-800 rounded-lg px-4 outline-none appearance-none text-sm md:text-base"
                     >
+                      <option>Featured 3-Bedroom Home (₱3,500,000)</option>
                       <option>Rowhouse Inner Unit</option>
                       <option>Rowhouse Corner Unit</option>
                       <option>Duplex Unit</option>
@@ -170,10 +185,13 @@ const Contact = () => {
                 </div>
 
                 <div className="space-y-2 md:space-y-3">
-                  <label className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Your message</label>
+                  <label htmlFor="inquiry-message" className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Your message</label>
                   <Textarea 
+                    id="inquiry-message"
                     name="message"
                     placeholder="Tell us about your requirements..." 
+                    minLength={10}
+                    maxLength={2000}
                     className="bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 min-h-[130px] rounded-lg p-4 text-sm md:text-base"
                     required 
                   />

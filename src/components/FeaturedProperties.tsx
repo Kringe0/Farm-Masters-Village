@@ -4,10 +4,55 @@ import React, { useEffect, useState } from 'react';
 import PropertyCard from './PropertyCard';
 import { supabase } from '@/lib/supabase';
 import { Loader2, SearchX } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+interface PropertyRecord {
+  image_url: string | null;
+  interior_images: string[] | string | null;
+  title: string | null;
+  location: string | null;
+  price: string | null;
+  property_type: string | null;
+  lot_area: string | null;
+  floor_area: string | null;
+  beds: number | null;
+  baths: number | null;
+  carpark: string | null;
+  tag: string | null;
+  description: string | null;
+  loanable_amount: string | null;
+  downpayment: string | null;
+  transfer_equity: string | null;
+  amortization: { years: number; amount: string }[] | null;
+}
+
+interface FeaturedProperty {
+  image: string;
+  interiorImages: string[];
+  title: string;
+  location: string;
+  price: string;
+  propertyType: string;
+  lotArea: string;
+  floorArea: string;
+  beds: number;
+  baths: number;
+  carpark: string | null;
+  tag: string;
+  description: string;
+  financing: {
+    loanableAmount: string;
+    downpayment: string;
+    transferEquity: string;
+    totalLoan: string;
+    amortization: { years: number; amount: string }[];
+  };
+}
 
 const FeaturedProperties = () => {
-  const [properties, setProperties] = useState<any[]>([]);
+  const [properties, setProperties] = useState<FeaturedProperty[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -21,7 +66,7 @@ const FeaturedProperties = () => {
         
         if (data && data.length > 0) {
           // Map Supabase snake_case to component camelCase with robust array handling
-          const mappedData = data.map(p => {
+          const mappedData = data.map((p: PropertyRecord) => {
             // Ensure interior_images is always an array
             let interiorImages: string[] = [];
             if (Array.isArray(p.interior_images)) {
@@ -38,25 +83,25 @@ const FeaturedProperties = () => {
               p.title?.toLowerCase().includes('duplex');
 
             return {
-              image: p.image_url,
+              image: p.image_url || "placeholder.svg",
               interiorImages: interiorImages,
-              title: p.title,
-              location: p.location,
-              price: p.price,
-              propertyType: p.property_type,
-              lotArea: p.lot_area,
-              floorArea: p.floor_area,
-              beds: p.beds,
-              baths: p.baths,
+              title: p.title ?? "Available home",
+              location: p.location ?? "Farm Masters Village, San Miguel, Bulacan",
+              price: p.price ?? "Contact for pricing",
+              propertyType: p.property_type ?? "House & Lot",
+              lotArea: p.lot_area ?? "Contact for details",
+              floorArea: p.floor_area ?? "Contact for details",
+              beds: p.beds ?? 0,
+              baths: p.baths ?? 0,
               carpark: p.carpark || (isCornerOrDuplex ? "1 Carpark" : null),
-              tag: p.tag,
-              description: p.description,
+              tag: p.tag ?? "Available",
+              description: p.description ?? "",
               financing: {
-                loanableAmount: p.loanable_amount, // Fixed mapping to camelCase
-                downpayment: p.downpayment,
-                transferEquity: p.transfer_equity, // Fixed mapping to camelCase
-                totalLoan: p.price,
-                amortization: p.amortization
+                loanableAmount: p.loanable_amount ?? "",
+                downpayment: p.downpayment ?? "",
+                transferEquity: p.transfer_equity ?? "",
+                totalLoan: p.price ?? "",
+                amortization: p.amortization ?? []
               }
             };
           });
@@ -64,6 +109,7 @@ const FeaturedProperties = () => {
         }
       } catch (error) {
         console.error('Error fetching properties:', error);
+        setFetchError(true);
       } finally {
         setLoading(false);
       }
@@ -71,15 +117,6 @@ const FeaturedProperties = () => {
 
     fetchProperties();
   }, []);
-
-  if (loading) {
-    return (
-      <div className="py-32 flex flex-col items-center justify-center text-emerald-600">
-        <Loader2 size={48} className="animate-spin mb-4" />
-        <p className="font-bold animate-pulse">Loading properties...</p>
-      </div>
-    );
-  }
 
   return (
     <section id="properties" className="py-20 md:py-28 bg-[#fbfaf7] relative overflow-hidden scroll-mt-24">
@@ -93,7 +130,21 @@ const FeaturedProperties = () => {
             Explore available homes in Farm Masters Village III, thoughtfully planned for everyday comfort in San Miguel, Bulacan.
           </p>
         </div>
-        {properties.length > 0 ? (
+        {loading ? (
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-stone-200 bg-white py-16 text-emerald-800" role="status">
+            <Loader2 size={32} className="animate-spin mb-3" />
+            <p className="text-sm font-medium">Loading available homes…</p>
+          </div>
+        ) : fetchError ? (
+          <div className="rounded-2xl border border-stone-200 bg-white px-6 py-10 text-center">
+            <SearchX className="mx-auto mb-3 text-emerald-800" size={28} />
+            <h3 className="font-semibold text-stone-900">Property listings are temporarily unavailable</h3>
+            <p className="mt-2 text-sm text-stone-600">Contact us for current availability and details.</p>
+            <Link to="/contact" className="mt-5 inline-flex min-h-11 items-center rounded-lg bg-emerald-900 px-5 text-sm font-semibold text-white hover:bg-emerald-800">
+              Ask about this home
+            </Link>
+          </div>
+        ) : properties.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {properties.map((prop, index) => (
               <div key={index} className="flex h-full">
@@ -105,7 +156,10 @@ const FeaturedProperties = () => {
           <div className="rounded-2xl border border-stone-200 bg-white px-6 py-12 text-center">
             <SearchX className="mx-auto mb-3 text-emerald-800" size={28} />
             <h3 className="font-semibold text-stone-900">No properties to show right now</h3>
-            <p className="mt-2 text-sm text-stone-600">Please check back soon or contact us for current availability.</p>
+            <p className="mt-2 text-sm text-stone-600">Contact us for current availability and details.</p>
+            <Link to="/contact" className="mt-5 inline-flex min-h-11 items-center rounded-lg bg-emerald-900 px-5 text-sm font-semibold text-white hover:bg-emerald-800">
+              Ask about this home
+            </Link>
           </div>
         )}
       </div>
