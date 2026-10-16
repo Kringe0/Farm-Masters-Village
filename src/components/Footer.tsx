@@ -2,10 +2,7 @@
 
 import React from 'react';
 import { 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Linkedin, 
+  Facebook,
   MapPin, 
   Mail, 
   Phone, 
@@ -17,7 +14,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-emerald-950 text-white py-12 md:py-16 overflow-hidden relative">
+    <footer className="bg-[#14251e] text-white py-12 md:py-16 overflow-hidden relative">
       {/* Subtle Top Border Gradient */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent"></div>
       
@@ -27,7 +24,7 @@ const Footer = () => {
           {/* Brand & Description */}
           <div className="flex flex-col items-center lg:items-start max-w-xs text-center lg:text-left">
             <Logo variant="footer" className="mb-4" />
-            <p className="text-emerald-100/40 text-xs font-medium leading-relaxed">
+            <p className="text-white/55 text-sm leading-relaxed">
               “Experience a premium, flood-free community in San Miguel, Bulacan—where modern living meets timeless tranquility.”
             </p>
           </div>
@@ -35,26 +32,26 @@ const Footer = () => {
           {/* Contact Info */}
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10">
             <div className="flex items-center gap-3 group">
-              <MapPin size={16} className="text-emerald-500" />
+              <MapPin size={16} className="text-emerald-300" />
               <div className="text-center md:text-left">
-                <p className="text-[9px] font-black text-emerald-500/60 uppercase tracking-widest">Location</p>
-                <p className="text-xs font-bold text-white/90">Pulong Bayabas, San Miguel, Bulacan</p>
+                <p className="text-[10px] font-semibold text-emerald-200/70 uppercase tracking-widest">Location</p>
+                <p className="text-xs font-medium text-white/90">Pulong Bayabas, San Miguel, Bulacan</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3 group">
-              <Phone size={16} className="text-emerald-500" />
+              <Phone size={16} className="text-emerald-300" />
               <div className="text-center md:text-left">
-                <p className="text-[9px] font-black text-emerald-500/60 uppercase tracking-widest">Call Us</p>
-                <p className="text-xs font-bold text-white/90">0976 063 8627</p>
+                <p className="text-[10px] font-semibold text-emerald-200/70 uppercase tracking-widest">Call us</p>
+                <a href="tel:09760638627" className="text-xs font-medium text-white/90 hover:text-emerald-200">0976 063 8627</a>
               </div>
             </div>
 
             <div className="flex items-center gap-3 group">
-              <Mail size={16} className="text-emerald-500" />
+              <Mail size={16} className="text-emerald-300" />
               <div className="text-center md:text-left">
-                <p className="text-[9px] font-black text-emerald-500/60 uppercase tracking-widest">Email</p>
-                <p className="text-xs font-bold text-white/90">analizacatacutan24@gmail.com</p>
+                <p className="text-[10px] font-semibold text-emerald-200/70 uppercase tracking-widest">Email</p>
+                <a href="mailto:analizacatacutan24@gmail.com" className="text-xs font-medium text-white/90 hover:text-emerald-200">analizacatacutan24@gmail.com</a>
               </div>
             </div>
           </div>
@@ -69,15 +66,6 @@ const Footer = () => {
             >
               <Facebook size={18} />
             </a>
-            {[Instagram, Linkedin, Twitter].map((Icon, idx) => (
-              <a 
-                key={idx}
-                href="#" 
-                className="w-10 h-10 bg-white/5 text-emerald-400 rounded-xl flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all duration-300 border border-white/5"
-              >
-                <Icon size={18} />
-              </a>
-            ))}
           </div>
         </div>
 
@@ -90,10 +78,6 @@ const Footer = () => {
             </p>
           </div>
           
-          <div className="flex gap-6 text-[9px] font-black uppercase tracking-[0.2em] text-emerald-100/10">
-            <a href="#" className="hover:text-emerald-400 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-emerald-400 transition-colors">Terms of Service</a>
-          </div>
         </div>
       </div>
     </footer>

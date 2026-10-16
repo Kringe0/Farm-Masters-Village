@@ -34,6 +34,10 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname, location.hash]);
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     showSuccess("Logged out successfully");
@@ -53,36 +57,36 @@ const Navbar = () => {
 
   return (
     <nav className={cn(
-      "fixed w-full z-[100] transition-all duration-500",
-      !isTransparent ? "bg-white/95 backdrop-blur-md py-3 shadow-md" : "bg-transparent py-6"
+      "fixed inset-x-0 top-0 z-[100] transition-all duration-300",
+      !isTransparent ? "bg-white/95 backdrop-blur-xl py-3 shadow-sm border-b border-stone-200/80" : "bg-gradient-to-b from-black/20 to-transparent py-5"
     )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          <Link to="/" className="flex-shrink-0 transition-transform hover:scale-105 active:scale-95">
+        <div className="flex justify-between items-center min-h-12">
+          <Link to="/" aria-label="Farm Masters Village III home" className="flex-shrink-0 transition-opacity hover:opacity-85">
             <Logo variant="dark" forceLightText={isTransparent} />
           </Link>
           
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center gap-7">
             {!isAdminPage ? (
               <>
                 {navLinks.map((link) => (
-                  <a
+                  <Link
                     key={link.name}
-                    href={link.href}
+                    to={link.href}
                     className={cn(
-                      "text-sm font-bold transition-all tracking-wide hover:opacity-70",
-                      !isTransparent ? "text-emerald-900" : "text-white"
+                      "text-[13px] font-semibold transition-colors tracking-wide hover:text-emerald-700",
+                      !isTransparent ? "text-stone-700" : "text-white/90"
                     )}
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 ))}
               </>
             ) : (
               <>
-                <Link to="/admin/inquiries" className="text-sm font-bold text-emerald-900 hover:opacity-70">Inquiries</Link>
-                <Link to="/admin/properties" className="text-sm font-bold text-emerald-900 hover:opacity-70">Properties</Link>
+                <Link to="/admin/inquiries" className="text-sm font-semibold text-stone-700 hover:text-emerald-700">Inquiries</Link>
+                <Link to="/admin/properties" className="text-sm font-semibold text-stone-700 hover:text-emerald-700">Properties</Link>
               </>
             )}
 
@@ -91,7 +95,7 @@ const Navbar = () => {
                 {!isAdminPage && (
                   <Link 
                     to="/admin/inquiries" 
-                    className="flex items-center gap-2 text-emerald-600 font-bold text-sm hover:opacity-70"
+                    className="flex items-center gap-2 text-emerald-700 font-semibold text-sm hover:text-emerald-900"
                   >
                     <LayoutDashboard size={18} />
                     Dashboard
@@ -99,7 +103,7 @@ const Navbar = () => {
                 )}
                 <button 
                   onClick={handleLogout}
-                  className="flex items-center gap-2 bg-red-50 text-red-600 px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-red-100 transition-all active:scale-95"
+                  className="flex items-center gap-2 bg-stone-100 text-stone-700 px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-stone-200 transition-colors"
                 >
                   <LogOut size={18} />
                   Logout
@@ -108,7 +112,7 @@ const Navbar = () => {
             ) : (
               <Link 
                 to="/contact" 
-                className="bg-emerald-600 text-white px-7 py-3 rounded-2xl text-sm font-bold hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95"
+                className="bg-emerald-800 text-white px-5 py-3 rounded-lg text-sm font-semibold hover:bg-emerald-900 transition-colors shadow-sm"
               >
                 Inquire Now
               </Link>
@@ -119,9 +123,12 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-navigation"
               className={cn(
-                "p-2.5 rounded-2xl transition-all active:scale-90",
-                !isTransparent ? "text-emerald-900 bg-emerald-50" : "text-white bg-white/10"
+                "p-2.5 rounded-lg transition-colors",
+                !isTransparent ? "text-stone-800 bg-stone-100" : "text-white bg-white/10"
               )}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -132,36 +139,36 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div className={cn(
-        "absolute top-full left-0 w-full bg-white border-b border-emerald-50 shadow-2xl md:hidden transition-all duration-300 ease-in-out overflow-hidden",
+        "absolute top-full left-0 w-full bg-white border-b border-stone-200 shadow-xl md:hidden transition-all duration-300 ease-in-out overflow-hidden",
         isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
       )}>
-        <div className="px-4 pt-2 pb-10 space-y-2">
+        <div id="mobile-navigation" className="px-4 pt-3 pb-6 space-y-1">
           {!isAdminPage ? (
             navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
-                className="flex items-center gap-4 px-5 py-4 text-emerald-900 hover:bg-emerald-50 rounded-2xl font-bold transition-colors active:scale-[0.98]"
+                to={link.href}
+                className="flex items-center gap-4 px-4 py-3 text-stone-800 hover:bg-stone-50 rounded-xl font-semibold transition-colors"
                 onClick={() => setIsOpen(false)}
               >
-                <div className="w-10 h-10 bg-emerald-100/50 rounded-xl flex items-center justify-center text-emerald-600">
+                <div className="w-9 h-9 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-800">
                   <link.icon size={20} />
                 </div>
                 {link.name}
-              </a>
+              </Link>
             ))
           ) : (
             <>
               <Link 
                 to="/admin/inquiries" 
-                className="flex items-center gap-4 px-5 py-4 text-emerald-900 hover:bg-emerald-50 rounded-2xl font-bold"
+                className="flex items-center gap-4 px-4 py-3 text-stone-800 hover:bg-stone-50 rounded-xl font-semibold"
                 onClick={() => setIsOpen(false)}
               >
                 Dashboard
               </Link>
               <Link 
                 to="/admin/properties" 
-                className="flex items-center gap-4 px-5 py-4 text-emerald-900 hover:bg-emerald-50 rounded-2xl font-bold"
+                className="flex items-center gap-4 px-4 py-3 text-stone-800 hover:bg-stone-50 rounded-xl font-semibold"
                 onClick={() => setIsOpen(false)}
               >
                 Properties
@@ -169,11 +176,11 @@ const Navbar = () => {
             </>
           )}
           
-          <div className="pt-4 px-2">
+          <div className="pt-3 px-1">
             {user ? (
               <button 
                 onClick={() => { handleLogout(); setIsOpen(false); }}
-                className="flex items-center justify-center gap-3 w-full bg-red-50 text-red-600 py-5 rounded-2xl font-bold active:scale-95"
+                className="flex items-center justify-center gap-3 w-full bg-stone-100 text-stone-700 py-3.5 rounded-xl font-semibold"
               >
                 <LogOut size={20} />
                 Logout
@@ -182,7 +189,7 @@ const Navbar = () => {
               <Link 
                 to="/contact" 
                 onClick={() => setIsOpen(false)}
-                className="block w-full bg-emerald-600 text-white text-center py-5 rounded-2xl font-bold shadow-xl shadow-emerald-600/20 active:scale-95"
+                className="block w-full bg-emerald-800 text-white text-center py-3.5 rounded-xl font-semibold shadow-sm"
               >
                 Inquire Now
               </Link>

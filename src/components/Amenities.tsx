@@ -6,6 +6,7 @@ import {
   Trophy, 
   Users
 } from 'lucide-react';
+import { publicAssetUrl } from '@/lib/utils';
 
 const Amenities = () => {
   const amenities = [
@@ -30,24 +31,24 @@ const Amenities = () => {
   ];
 
   return (
-    <section id="amenities" className="py-16 md:py-32 bg-emerald-50/30 overflow-hidden">
+    <section id="amenities" className="py-20 md:py-28 bg-white overflow-hidden scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-20">
-          <h2 className="text-emerald-600 font-black tracking-[0.2em] md:tracking-[0.3em] uppercase text-[9px] md:text-[10px] mb-3 md:mb-4">Community Features</h2>
-          <h3 className="text-3xl md:text-6xl font-black text-emerald-950 tracking-tighter mb-4 md:mb-6">
-            Elevated <span className="text-emerald-600">Living</span>
+          <h2 className="text-emerald-800 font-semibold tracking-[0.16em] uppercase text-[10px] md:text-xs mb-3">Community features</h2>
+          <h3 className="text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.04em] mb-4">
+            Room to enjoy life.
           </h3>
-          <p className="text-emerald-900/50 text-base md:text-lg max-w-2xl mx-auto font-medium">
+          <p className="text-stone-600 text-base md:text-lg max-w-2xl mx-auto">
             Experience a lifestyle of comfort and leisure with our thoughtfully designed community amenities.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
           {amenities.map((item, index) => (
             <div key={index} className="group relative">
-              <div className="relative h-[350px] md:h-[450px] rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
+              <div className="relative h-[340px] md:h-[390px] rounded-2xl overflow-hidden shadow-lg transition-transform duration-300 group-hover:-translate-y-1">
                 <img 
-                  src={item.image} 
+                  src={publicAssetUrl(item.image)}
                   alt={item.title} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   onError={(e) => {
@@ -57,11 +58,11 @@ const Amenities = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/20 to-transparent opacity-90"></div>
                 
                 <div className="absolute bottom-0 left-0 p-8 md:p-10 w-full">
-                  <div className="w-12 h-12 md:w-14 md:h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-xl">
+                  <div className="w-11 h-11 bg-emerald-700 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg">
                     <item.icon size={24} />
                   </div>
-                  <h4 className="text-xl md:text-2xl font-black text-white mb-2 md:mb-3 tracking-tight">{item.title}</h4>
-                  <p className="text-emerald-50/70 text-xs md:text-sm leading-relaxed font-medium">
+                  <h4 className="text-xl font-semibold text-white mb-2 tracking-tight">{item.title}</h4>
+                  <p className="text-white/75 text-sm leading-relaxed">
                     {item.desc}
                   </p>
                 </div>

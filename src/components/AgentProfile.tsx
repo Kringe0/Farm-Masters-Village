@@ -14,12 +14,13 @@ import {
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import { publicAssetUrl } from '@/lib/utils';
 
 const AgentProfile = () => {
   return (
-    <section id="agent" className="py-16 md:py-24 bg-white overflow-hidden">
+    <section id="agent" className="py-20 md:py-28 bg-[#fbfaf7] overflow-hidden scroll-mt-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative bg-emerald-50/30 rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-16 border border-emerald-100/50">
+        <div className="relative bg-white rounded-2xl md:rounded-3xl p-6 md:p-12 border border-stone-200 shadow-sm">
           {/* Decorative Background Element */}
           <div className="absolute -top-12 -right-12 w-64 h-64 bg-emerald-100/50 rounded-full blur-3xl opacity-50 -z-10"></div>
 
@@ -28,9 +29,9 @@ const AgentProfile = () => {
             <div className="lg:col-span-4 relative">
               <div className="relative z-10">
                 {/* Main Image Frame */}
-                <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-xl border-4 border-white bg-emerald-100 group">
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-emerald-100 group">
                   <img 
-                    src="/agent.jpg" 
+                    src={publicAssetUrl("agent.jpg")}
                     alt="Analiza Catacutan" 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     onError={(e) => {
@@ -53,13 +54,13 @@ const AgentProfile = () => {
             {/* Content Column */}
             <div className="lg:col-span-8 space-y-6 md:space-y-8">
               <div className="space-y-4">
-                <div className="inline-flex items-center gap-2.5 px-4 py-1.5 bg-emerald-950 text-emerald-400 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] border border-emerald-800 shadow-lg shadow-emerald-900/10">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-800 rounded-full text-[10px] font-semibold uppercase tracking-[0.15em] border border-emerald-100">
                   <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div>
                   REAL ESTATE SALESPERSON
                 </div>
                 
                 <div className="flex items-center gap-3 md:gap-4">
-                  <h2 className="text-4xl md:text-6xl font-black text-emerald-950 tracking-tighter leading-tight">
+                  <h2 className="text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.045em] leading-tight">
                     Analiza Catacutan
                   </h2>
                   <div className="flex-shrink-0 text-blue-500 bg-blue-50 p-1.5 md:p-2 rounded-full shadow-sm border border-blue-100">
@@ -80,7 +81,7 @@ const AgentProfile = () => {
                 </div>
               </div>
 
-              <p className="text-base md:text-xl text-emerald-900/70 leading-relaxed font-medium italic border-l-4 border-emerald-200 pl-5">
+              <p className="text-base md:text-lg text-stone-600 leading-relaxed border-l-2 border-emerald-700 pl-5">
                 "Committed to integrity and excellence, I provide expert guidance to help you secure a future of peace and comfort for your family."
               </p>
 
@@ -92,7 +93,7 @@ const AgentProfile = () => {
                   { icon: Award, title: "Verified Listings", desc: "Official inventory." }
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-3 group">
-                    <div className="flex-shrink-0 w-10 h-10 bg-white rounded-xl flex items-center justify-center text-emerald-600 border border-emerald-100 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                    <div className="flex-shrink-0 w-10 h-10 bg-stone-50 rounded-lg flex items-center justify-center text-emerald-800 border border-stone-200 group-hover:bg-emerald-800 group-hover:text-white transition-colors">
                       <item.icon size={18} />
                     </div>
                     <div>
@@ -104,13 +105,13 @@ const AgentProfile = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl px-8 py-6 h-auto text-base font-black shadow-lg shadow-emerald-200 transition-all active:scale-95">
+                <Button asChild className="bg-emerald-800 hover:bg-emerald-900 text-white rounded-lg px-6 py-5 h-auto text-sm font-semibold shadow-sm transition-colors">
                   <Link to="/contact">
                     Book Site Viewing
                     <ExternalLink className="ml-2" size={18} />
                   </Link>
                 </Button>
-                <Button variant="outline" asChild className="bg-white border-emerald-100 text-emerald-700 hover:bg-emerald-50 rounded-xl px-8 py-6 h-auto text-base font-black transition-all active:scale-95">
+                <Button variant="outline" asChild className="bg-white border-stone-300 text-stone-700 hover:bg-stone-50 rounded-lg px-6 py-5 h-auto text-sm font-semibold transition-colors">
                   <a href="tel:09760638627">
                     <Phone className="mr-2" size={18} />
                     Call Direct

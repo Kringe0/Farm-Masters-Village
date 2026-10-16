@@ -38,24 +38,24 @@ const LocationHighlights = () => {
   ];
 
   return (
-    <section id="highlights" className="py-16 md:py-24 bg-slate-50">
+    <section id="highlights" className="py-20 md:py-28 bg-white scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-emerald-600 font-bold tracking-widest uppercase text-[10px] md:text-sm mb-3 md:mb-4">The Neighborhood</h2>
-          <h3 className="text-3xl md:text-4xl font-bold text-emerald-950">Why Farm Masters Village ?</h3>
-          <p className="text-emerald-800/60 mt-4 max-w-2xl mx-auto text-sm md:text-base">
+          <h2 className="text-emerald-800 font-semibold tracking-[0.16em] uppercase text-[10px] md:text-xs mb-3">The neighborhood</h2>
+          <h3 className="text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.04em]">Well connected, peacefully placed.</h3>
+          <p className="text-stone-600 mt-4 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
             Farm Masters Village is strategically located in Pulong Bayabas, San Miguel, Bulacan to give you the perfect balance of rural peace and urban convenience.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {highlights.map((item, index) => (
-            <div key={index} className="bg-white p-6 md:p-8 rounded-[2rem] shadow-sm border border-emerald-100 hover:shadow-md transition-all duration-300 group">
-              <div className="w-12 h-12 md:w-14 md:h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mb-5 md:mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+            <div key={index} className="bg-[#fbfaf7] p-6 md:p-7 rounded-xl border border-stone-200 hover:border-emerald-900/30 hover:shadow-md transition-all duration-300 group">
+              <div className="w-11 h-11 bg-white rounded-lg border border-stone-200 flex items-center justify-center text-emerald-800 mb-5 group-hover:bg-emerald-800 group-hover:text-white transition-colors duration-300">
                 <item.icon size={24} />
               </div>
-              <h4 className="text-lg md:text-xl font-bold text-emerald-950 mb-2 md:mb-3">{item.title}</h4>
-              <p className="text-emerald-800/60 leading-relaxed text-sm md:text-base">{item.desc}</p>
+              <h4 className="text-lg font-semibold text-stone-900 mb-2">{item.title}</h4>
+              <p className="text-stone-600 leading-relaxed text-sm">{item.desc}</p>
             </div>
           ))}
         </div>

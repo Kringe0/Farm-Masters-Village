@@ -41,7 +41,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[#fbfaf7] flex flex-col items-center justify-center p-4 relative overflow-hidden">
       {/* Decorative Background */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-100 rounded-full blur-3xl opacity-50"></div>
@@ -53,12 +53,12 @@ const LoginPage = () => {
           <Logo variant="dark" />
         </div>
 
-        <Card className="rounded-[2.5rem] border-emerald-100 shadow-2xl shadow-emerald-900/5 overflow-hidden">
-          <CardHeader className="bg-emerald-50/50 border-b border-emerald-100 p-8 text-center">
-            <div className="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 shadow-lg">
+        <Card className="rounded-2xl border-stone-200 shadow-xl shadow-stone-900/5 overflow-hidden">
+          <CardHeader className="bg-stone-50 border-b border-stone-200 p-8 text-center">
+            <div className="w-12 h-12 bg-emerald-800 rounded-xl flex items-center justify-center text-white mx-auto mb-4 shadow-sm">
               <ShieldCheck size={24} />
             </div>
-            <CardTitle className="text-2xl font-black text-emerald-950 tracking-tighter">Admin Portal</CardTitle>
+            <CardTitle className="text-2xl font-semibold text-stone-900 tracking-tight">Admin Portal</CardTitle>
             <CardDescription className="text-emerald-800/60 font-medium">
               Secure access for authorized personnel only.
             </CardDescription>

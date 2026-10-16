@@ -38,37 +38,37 @@ const HomeownershipPath = () => {
   ];
 
   return (
-    <section id="journey" className="py-16 md:py-32 bg-white overflow-hidden">
+    <section id="journey" className="py-20 md:py-28 bg-[#fbfaf7] overflow-hidden scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 md:mb-24">
-          <h2 className="text-emerald-600 font-black tracking-[0.2em] md:tracking-[0.3em] uppercase text-[9px] md:text-[10px] mb-3 md:mb-4">The Journey</h2>
-          <h3 className="text-3xl md:text-6xl font-black text-emerald-950 tracking-tighter mb-4 md:mb-6">
-            Path to <span className="text-emerald-600">Homeownership</span>
+          <h2 className="text-emerald-800 font-semibold tracking-[0.16em] uppercase text-[10px] md:text-xs mb-3">The process</h2>
+          <h3 className="text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.04em] mb-4">
+            Your path to homeownership
           </h3>
-          <p className="text-emerald-900/50 text-base md:text-lg max-w-2xl mx-auto font-medium">
+          <p className="text-stone-600 text-base md:text-lg max-w-2xl mx-auto">
             We've simplified the process to make owning your dream home in San Miguel as smooth and transparent as possible.
           </p>
         </div>
 
         <div className="relative">
           {/* Connecting Line (Desktop) */}
-          <div className="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-emerald-100 -translate-y-1/2 z-0"></div>
+          <div className="hidden lg:block absolute top-10 left-[10%] w-[80%] h-px bg-stone-200 z-0"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 relative z-10">
             {steps.map((step, index) => (
               <div key={index} className="group flex flex-col items-center text-center">
                 {/* Icon Circle */}
-                <div className={`w-20 h-20 md:w-28 md:h-28 ${step.color} rounded-[2rem] md:rounded-[2.5rem] flex items-center justify-center mb-6 md:mb-8 shadow-2xl border-4 border-white transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 relative`}>
-                  <step.icon size={32} className="md:w-10 md:h-10" />
+                <div className={`w-20 h-20 ${step.color} rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-white transition-transform duration-300 group-hover:-translate-y-1 relative`}>
+                  <step.icon size={30} />
                   
                   {/* Step Number Badge */}
-                  <div className="absolute -top-3 -right-3 w-8 h-8 md:w-10 md:h-10 bg-emerald-950 text-white rounded-2xl flex items-center justify-center text-xs md:text-sm font-black border-2 border-white shadow-lg">
+                  <div className="absolute -top-2 -right-2 w-7 h-7 bg-stone-900 text-white rounded-lg flex items-center justify-center text-xs font-semibold border-2 border-white shadow">
                     {index + 1}
                   </div>
                 </div>
 
-                <h4 className="text-xl md:text-2xl font-black text-emerald-950 mb-3 md:mb-4 tracking-tight">{step.title}</h4>
-                <p className="text-emerald-900/60 text-sm md:text-base leading-relaxed font-medium px-4">
+                <h4 className="text-lg md:text-xl font-semibold text-stone-900 mb-3 tracking-tight">{step.title}</h4>
+                <p className="text-stone-600 text-sm leading-relaxed px-2">
                   {step.desc}
                 </p>
 

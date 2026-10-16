@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { cn } from '@/lib/utils';
+import { cn, publicAssetUrl } from '@/lib/utils';
 import {
   Dialog,
   DialogContent,
@@ -127,14 +127,14 @@ const PropertyCard = ({
 
   return (
     <>
-      <Card className="group overflow-hidden border border-emerald-100 bg-white flex flex-col h-full transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-100/50 hover:border-emerald-200 rounded-[2rem]">
+      <Card className="group overflow-hidden border border-stone-200 bg-white flex flex-col h-full transition-all duration-300 hover:shadow-xl hover:shadow-stone-900/5 hover:border-emerald-900/25 rounded-2xl">
         {/* Image Section */}
         <div 
-          className="relative h-64 md:h-72 overflow-hidden cursor-zoom-in group/img"
+          className="relative h-60 md:h-64 overflow-hidden cursor-zoom-in group/img"
           onClick={() => openLightbox([image], 0)}
         >
           <img 
-            src={image} 
+            src={publicAssetUrl(image)}
             alt={title} 
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
@@ -149,7 +149,7 @@ const PropertyCard = ({
 
           <Watermark size="sm" />
           <div className="absolute top-4 left-4 md:top-5 md:left-5 flex gap-2 z-50">
-            <Badge className="bg-emerald-600 text-white border-none px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-lg">
+            <Badge className="bg-white/95 text-emerald-900 border-none px-3 py-1 rounded-md text-[9px] md:text-[10px] font-semibold uppercase tracking-wider shadow-sm">
               {tag}
             </Badge>
           </div>
@@ -158,18 +158,18 @@ const PropertyCard = ({
         {/* Content Section */}
         <CardContent className="p-6 md:p-8 flex-grow flex flex-col">
           <div className="mb-5 md:mb-6">
-            <p className="text-emerald-600 font-black text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-1.5 md:mb-2">{propertyType}</p>
-            <h3 className="text-xl md:text-2xl font-bold text-emerald-950 leading-tight mb-2 md:mb-3 group-hover:text-emerald-700 transition-colors">
+            <p className="text-emerald-800 font-semibold text-[10px] uppercase tracking-[0.14em] mb-2">{propertyType}</p>
+            <h3 className="text-xl md:text-[1.35rem] font-semibold text-stone-900 leading-snug mb-2 group-hover:text-emerald-800 transition-colors">
               {title}
             </h3>
-            <div className="flex items-center text-emerald-900/40 text-[10px] md:text-xs gap-2 font-medium">
-              <MapPin size={14} className="text-emerald-500" />
+            <div className="flex items-center text-stone-500 text-xs gap-2 font-medium">
+              <MapPin size={14} className="text-emerald-800" />
               <span className="truncate">{location}</span>
             </div>
           </div>
           
           {/* Specs Grid - With Labels for Main Card */}
-          <div className="grid grid-cols-2 gap-3 md:gap-4 p-4 md:p-5 bg-emerald-50/50 rounded-2xl border border-emerald-100/50 mb-6 md:mb-8">
+          <div className="grid grid-cols-2 gap-3 p-4 bg-stone-50 rounded-xl border border-stone-100 mb-5">
             <div className="flex items-center gap-2 md:gap-3">
               <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-white flex items-center justify-center text-emerald-600 shadow-sm">
                 <Maximize2 size={14} />
@@ -205,17 +205,17 @@ const PropertyCard = ({
           </div>
 
           {/* Simplified TCP Price */}
-          <div className="mt-auto pt-5 md:pt-6 border-t border-emerald-100 flex flex-col">
-            <span className="text-[9px] md:text-[10px] text-emerald-600 font-black uppercase tracking-widest mb-1">TCP</span>
-            <span className="text-2xl md:text-3xl font-black text-emerald-950 tracking-tighter">{price}</span>
+          <div className="mt-auto pt-4 border-t border-stone-100 flex flex-col">
+            <span className="text-[10px] text-stone-500 font-semibold uppercase tracking-widest mb-1">Total contract price</span>
+            <span className="text-2xl font-semibold text-stone-900 tracking-tight">{price}</span>
           </div>
         </CardContent>
 
         {/* Footer Action */}
-        <CardFooter className="p-6 md:p-8 pt-0">
+        <CardFooter className="p-6 md:p-7 pt-0">
           <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
             <DialogTrigger asChild>
-              <button className="w-full py-3.5 md:py-4 bg-emerald-950 text-white text-xs md:text-sm font-black rounded-2xl hover:bg-emerald-900 transition-all flex items-center justify-center gap-3 shadow-xl active:scale-[0.98]">
+              <button className="w-full py-3.5 bg-emerald-900 text-white text-sm font-semibold rounded-lg hover:bg-emerald-800 transition-colors flex items-center justify-center gap-2">
                 View Full Details
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </button>
@@ -237,7 +237,7 @@ const PropertyCard = ({
                     className="relative h-56 md:h-96 w-full cursor-zoom-in group/dialog-img"
                     onClick={() => openLightbox(allImages, 0)}
                   >
-                    <img src={image} alt={title} className="w-full h-full object-cover" />
+                    <img src={publicAssetUrl(image)} alt={title} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/20 to-transparent"></div>
                     
                     {/* Hover Zoom Indicator */}
@@ -298,7 +298,7 @@ const PropertyCard = ({
                                   className="group/gallery relative cursor-zoom-in overflow-hidden rounded-[1.5rem] md:rounded-[2rem] aspect-video shadow-md"
                                   onClick={() => openLightbox(interiorImages, idx)}
                                 >
-                                  <img src={img} alt="Interior" className="w-full h-full object-cover transition-transform duration-700 group-hover/gallery:scale-110" />
+                                  <img src={publicAssetUrl(img)} alt="Interior" className="w-full h-full object-cover transition-transform duration-700 group-hover/gallery:scale-110" />
                                   <Watermark size="xs" />
                                   <div className="absolute inset-0 bg-emerald-950/20 opacity-0 group-hover/gallery:opacity-100 transition-opacity flex items-center justify-center">
                                     <ZoomIn className="text-white" size={24} />
@@ -364,7 +364,7 @@ const PropertyCard = ({
             {/* Image Container - Controls are now INSIDE this div */}
             <div className="relative inline-block overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] shadow-2xl border border-white/10 max-w-full max-h-[85vh]">
               <img 
-                src={currentImageIndex !== null ? activeGallery[currentImageIndex] : ''} 
+                src={currentImageIndex !== null ? publicAssetUrl(activeGallery[currentImageIndex]) : ''}
                 alt="Gallery view" 
                 className="max-w-full max-h-[85vh] object-contain animate-in zoom-in-95 duration-300"
               />

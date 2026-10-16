@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import { cn } from '@/lib/utils';
+import { publicAssetUrl } from '@/lib/utils';
 
 interface Amortization {
   years: number;
@@ -188,13 +189,13 @@ const AdminProperties = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/50">
+    <div className="min-h-screen bg-[#fbfaf7]">
       <Navbar />
       <main className="pt-32 pb-20 px-4 max-w-5xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
           <div className="space-y-1">
-            <h1 className="text-4xl font-black text-emerald-950 tracking-tighter">Inventory</h1>
-            <p className="text-emerald-800/50 font-medium">Manage property listings and financial schedules.</p>
+            <h1 className="text-3xl md:text-4xl font-semibold text-stone-900 tracking-[-0.04em]">Inventory</h1>
+            <p className="text-stone-600">Manage property listings and financial schedules.</p>
           </div>
           <div className="flex gap-3 w-full md:w-auto">
             <Button 
@@ -250,7 +251,7 @@ const AdminProperties = () => {
                   >
                     <div className="flex items-center gap-4 w-full md:w-auto">
                       <div className="w-14 h-14 rounded-2xl overflow-hidden bg-emerald-100 flex-shrink-0 border border-emerald-100">
-                        <img src={prop.image_url} alt="" className="w-full h-full object-cover" />
+                        <img src={publicAssetUrl(prop.image_url)} alt="" className="w-full h-full object-cover" />
                       </div>
                       <div className="flex-grow">
                         <h3 className="text-lg font-black text-emerald-950 tracking-tight leading-tight">{prop.title}</h3>

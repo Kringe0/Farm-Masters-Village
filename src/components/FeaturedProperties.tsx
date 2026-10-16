@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import PropertyCard from './PropertyCard';
 import { supabase } from '@/lib/supabase';
-import { Loader2 } from 'lucide-react';
+import { Loader2, SearchX } from 'lucide-react';
 
 const FeaturedProperties = () => {
   const [properties, setProperties] = useState<any[]>([]);
@@ -82,26 +82,32 @@ const FeaturedProperties = () => {
   }
 
   return (
-    <section id="properties" className="py-16 md:py-32 bg-white relative overflow-hidden">
+    <section id="properties" className="py-20 md:py-28 bg-[#fbfaf7] relative overflow-hidden scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 md:mb-16 gap-6 md:gap-8">
-          <div className="text-center md:text-left">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-3 md:mb-4">
-              Featured Properties
-            </h2>
-            <p className="text-slate-500 text-base md:text-lg max-w-xl">
-              Explore our selection of modern residential units in San Miguel, Bulacan.
-            </p>
+        <div className="mb-10 md:mb-14 max-w-2xl">
+          <p className="text-emerald-800 font-semibold tracking-[0.16em] uppercase text-[10px] md:text-xs mb-3">Find your place</p>
+          <h2 className="text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.04em] mb-4">
+            Homes made for living well.
+          </h2>
+          <p className="text-stone-600 text-base md:text-lg leading-relaxed">
+            Explore available homes in Farm Masters Village III, thoughtfully planned for everyday comfort in San Miguel, Bulacan.
+          </p>
+        </div>
+        {properties.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+            {properties.map((prop, index) => (
+              <div key={index} className="flex h-full">
+                <PropertyCard {...prop} />
+              </div>
+            ))}
           </div>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {properties.map((prop, index) => (
-            <div key={index} className="flex h-full">
-              <PropertyCard {...prop} />
-            </div>
-          ))}
-        </div>
+        ) : (
+          <div className="rounded-2xl border border-stone-200 bg-white px-6 py-12 text-center">
+            <SearchX className="mx-auto mb-3 text-emerald-800" size={28} />
+            <h3 className="font-semibold text-stone-900">No properties to show right now</h3>
+            <p className="mt-2 text-sm text-stone-600">Please check back soon or contact us for current availability.</p>
+          </div>
+        )}
       </div>
     </section>
   );

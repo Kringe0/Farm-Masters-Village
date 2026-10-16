@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Logo from './Logo';
-import { cn } from '@/lib/utils';
+import { cn, publicAssetUrl } from '@/lib/utils';
 
 const LoadingScreen = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -35,7 +35,7 @@ const LoadingScreen = () => {
       {/* Background Layer with Deep Cinematic Blur */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img 
-          src="/hero-bg.jpg" 
+          src={publicAssetUrl("hero-bg.jpg")}
           alt="" 
           className="w-full h-full object-cover scale-110 animate-[slow-zoom_20s_linear_infinite]"
         />

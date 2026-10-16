@@ -56,90 +56,90 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 bg-emerald-950 text-white overflow-hidden relative min-h-[80vh] flex items-center">
+    <section id="contact" className="py-16 md:py-24 bg-[#14251e] text-white overflow-hidden relative min-h-[80vh] flex items-center">
       <div className="absolute top-0 right-0 w-1/2 h-full bg-emerald-900/20 -skew-x-12 translate-x-1/4 pointer-events-none"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-emerald-400 font-bold tracking-widest uppercase text-[10px] md:text-sm mb-3 md:mb-4">Get in Touch</h2>
-          <h3 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6">Inquiries</h3>
-          <p className="text-emerald-100/60 text-base md:text-lg max-w-2xl mx-auto">
+        <div className="text-center mb-10 md:mb-14">
+          <h2 className="text-emerald-300 font-semibold tracking-[0.16em] uppercase text-[10px] md:text-xs mb-3">Get in touch</h2>
+          <h3 className="text-3xl md:text-5xl font-semibold tracking-[-0.04em] mb-4">Let’s talk about your new home.</h3>
+          <p className="text-white/65 text-base md:text-lg max-w-2xl mx-auto">
             Connect with our official development team for site viewings, investment consultations, and exclusive property details.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-12 items-start">
           <div className="lg:col-span-5 space-y-8 md:space-y-10">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-[2rem] md:rounded-3xl p-6 md:p-10">
-              <h4 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 flex items-center gap-3">
-                <span className="w-8 h-1 bg-emerald-500 rounded-full"></span>
+            <div className="bg-white/[0.06] backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
+              <h4 className="text-xl font-semibold mb-6 flex items-center gap-3">
+                <span className="w-7 h-px bg-emerald-300"></span>
                 Contact Us
               </h4>
               
               <div className="space-y-6 md:space-y-8">
                 <div className="flex items-start gap-4 md:gap-5">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald-500/20 rounded-xl md:rounded-2xl flex items-center justify-center text-emerald-400 flex-shrink-0">
+                  <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-emerald-200 flex-shrink-0">
                     <Phone size={20} />
                   </div>
                   <div>
-                    <p className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-1">Direct Line</p>
-                    <p className="text-lg md:text-xl font-semibold">0976 063 8627</p>
-                    <p className="text-emerald-100/40 text-xs mt-1 flex items-center gap-1">
+                    <p className="text-emerald-200 text-[10px] font-semibold uppercase tracking-wider mb-1">Direct line</p>
+                    <a href="tel:09760638627" className="text-lg md:text-xl font-semibold hover:text-emerald-200 transition-colors">0976 063 8627</a>
+                    <p className="text-white/45 text-xs mt-1 flex items-center gap-1">
                       <Clock size={12} /> Everyday: 8AM - 6PM
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4 md:gap-5">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald-500/20 rounded-xl md:rounded-2xl flex items-center justify-center text-emerald-400 flex-shrink-0">
+                  <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-emerald-200 flex-shrink-0">
                     <Mail size={20} />
                   </div>
                   <div>
-                    <p className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-1">Email Inquiry</p>
-                    <p className="text-lg md:text-xl font-semibold break-all">analizacatacutan24@gmail.com</p>
+                    <p className="text-emerald-200 text-[10px] font-semibold uppercase tracking-wider mb-1">Email inquiry</p>
+                    <a href="mailto:analizacatacutan24@gmail.com" className="text-base md:text-lg font-semibold break-all hover:text-emerald-200 transition-colors">analizacatacutan24@gmail.com</a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4 md:gap-5">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald-500/20 rounded-xl md:rounded-2xl flex items-center justify-center text-emerald-400 flex-shrink-0">
+                  <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-emerald-200 flex-shrink-0">
                     <MapPin size={20} />
                   </div>
                   <div>
-                    <p className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-1">Site Location</p>
-                    <p className="text-lg md:text-xl font-semibold">Pulong Bayabas, San Miguel, Bulacan</p>
+                    <p className="text-emerald-200 text-[10px] font-semibold uppercase tracking-wider mb-1">Site location</p>
+                    <p className="text-base md:text-lg font-semibold">Pulong Bayabas, San Miguel, Bulacan</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 p-5 md:p-6 bg-emerald-900/40 rounded-2xl border border-emerald-800/50">
-              <ShieldCheck className="text-emerald-400 flex-shrink-0" size={20} />
-              <p className="text-xs md:text-sm text-emerald-100/70">
+            <div className="flex items-center gap-4 p-5 bg-white/[0.04] rounded-xl border border-white/10">
+              <ShieldCheck className="text-emerald-200 flex-shrink-0" size={20} />
+              <p className="text-xs md:text-sm text-white/65">
                 Your inquiry is handled directly by our licensed development consultants. We value your privacy and data security.
               </p>
             </div>
           </div>
 
           <div className="lg:col-span-7">
-            <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-12 shadow-2xl text-emerald-950">
+            <div className="bg-white rounded-2xl p-6 md:p-10 shadow-xl text-stone-900">
               <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   <div className="space-y-2 md:space-y-3">
-                    <label className="text-emerald-900 font-bold text-[10px] md:text-sm uppercase tracking-wider">Full Name</label>
+                    <label className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Full name</label>
                     <Input 
                       name="fullname"
                       placeholder="Enter your name" 
-                      className="h-12 md:h-14 bg-emerald-50/50 border-emerald-100 text-emerald-900 focus-visible:ring-emerald-600 rounded-xl" 
+                      className="h-12 bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
                       required 
                     />
                   </div>
                   <div className="space-y-2 md:space-y-3">
-                    <label className="text-emerald-900 font-bold text-[10px] md:text-sm uppercase tracking-wider">Email Address</label>
+                    <label className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Email address</label>
                     <Input 
                       name="email"
                       type="email" 
                       placeholder="email@example.com" 
-                      className="h-12 md:h-14 bg-emerald-50/50 border-emerald-100 text-emerald-900 focus-visible:ring-emerald-600 rounded-xl" 
+                      className="h-12 bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
                       required 
                     />
                   </div>
@@ -147,19 +147,19 @@ const Contact = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   <div className="space-y-2 md:space-y-3">
-                    <label className="text-emerald-900 font-bold text-[10px] md:text-sm uppercase tracking-wider">Phone Number</label>
+                    <label className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Phone number</label>
                     <Input 
                       name="phone"
                       placeholder="+63 900 000 0000" 
-                      className="h-12 md:h-14 bg-emerald-50/50 border-emerald-100 text-emerald-900 focus-visible:ring-emerald-600 rounded-xl" 
+                      className="h-12 bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
                       required 
                     />
                   </div>
                   <div className="space-y-2 md:space-y-3">
-                    <label className="text-emerald-900 font-bold text-[10px] md:text-sm uppercase tracking-wider">Interested In</label>
+                    <label className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Interested in</label>
                     <select 
                       name="interest"
-                      className="w-full h-12 md:h-14 bg-emerald-50/50 border border-emerald-100 text-emerald-900 focus:ring-2 focus:ring-emerald-600 rounded-xl px-4 outline-none appearance-none text-sm md:text-base"
+                      className="w-full h-12 bg-stone-50 border border-stone-200 text-stone-900 focus:ring-2 focus:ring-emerald-800 rounded-lg px-4 outline-none appearance-none text-sm md:text-base"
                     >
                       <option>Rowhouse Inner Unit</option>
                       <option>Rowhouse Corner Unit</option>
@@ -170,11 +170,11 @@ const Contact = () => {
                 </div>
 
                 <div className="space-y-2 md:space-y-3">
-                  <label className="text-emerald-900 font-bold text-[10px] md:text-sm uppercase tracking-wider">Your Message</label>
+                  <label className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Your message</label>
                   <Textarea 
                     name="message"
                     placeholder="Tell us about your requirements..." 
-                    className="bg-emerald-50/50 border-emerald-100 text-emerald-900 focus-visible:ring-emerald-600 min-h-[120px] md:min-h-[160px] rounded-xl p-4 md:p-5 text-sm md:text-base" 
+                    className="bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 min-h-[130px] rounded-lg p-4 text-sm md:text-base"
                     required 
                   />
                 </div>
@@ -182,7 +182,7 @@ const Contact = () => {
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-14 md:h-16 rounded-2xl text-base md:text-lg font-bold transition-all duration-300 shadow-lg shadow-emerald-200 disabled:opacity-70"
+                  className="w-full bg-emerald-800 hover:bg-emerald-900 text-white h-12 rounded-lg text-sm md:text-base font-semibold transition-colors shadow-sm disabled:opacity-70"
                 >
                   {isSubmitting ? (
                     <Loader2 className="mr-3 animate-spin" size={20} />

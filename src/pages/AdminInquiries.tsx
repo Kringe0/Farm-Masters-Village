@@ -108,7 +108,7 @@ const AdminInquiries = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/50">
+    <div className="min-h-screen bg-[#fbfaf7]">
       <Navbar />
       <main className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 gap-6">
@@ -117,7 +117,7 @@ const AdminInquiries = () => {
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
               Live Dashboard
             </div>
-            <h1 className="text-3xl md:text-5xl font-black text-emerald-950 tracking-tighter">
+            <h1 className="text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.04em]">
               Client <span className="text-emerald-600">Inquiries</span>
             </h1>
             <p className="text-emerald-800/50 font-medium text-sm md:text-base">
@@ -141,7 +141,7 @@ const AdminInquiries = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-2xl shadow-emerald-900/5 border border-emerald-100/50 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden">
           {loading && inquiries.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-32 text-emerald-600">
               <div className="relative">

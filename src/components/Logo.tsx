@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { cn } from '@/lib/utils';
+import { cn, publicAssetUrl } from '@/lib/utils';
 
 interface LogoProps {
   className?: string;
@@ -27,7 +27,7 @@ const Logo = ({ className, variant = 'dark', forceLightText }: LogoProps) => {
         )}
         
         <img 
-          src="/logo.png" 
+          src={publicAssetUrl("logo.png")}
           alt="Farm Masters Village III Logo" 
           className="relative z-10 object-contain transition-all w-full h-full scale-125"
           onError={(e) => {

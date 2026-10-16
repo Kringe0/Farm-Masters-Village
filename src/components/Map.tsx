@@ -7,7 +7,7 @@ const Map = () => {
   const embedUrl = "https://maps.google.com/maps?q=Farm%20Masters%20Village%20III&t=&z=13&ie=UTF8&iwloc=&output=embed";
 
   return (
-    <div className="w-full h-[400px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10">
+    <div className="w-full h-[340px] md:h-[440px] rounded-2xl overflow-hidden shadow-lg border border-stone-200 bg-stone-100">
       <iframe
         title="Farm Masters Village III Location"
         width="100%"
