@@ -16,16 +16,11 @@ const Logo = ({ className, variant = 'dark', forceLightText }: LogoProps) => {
   return (
     <div className={cn("flex items-center gap-3 group", className)}>
       <div className={cn(
-        "relative flex-shrink-0 flex items-center justify-center transition-all duration-500 group-hover:scale-110",
-        "w-12 h-12 md:w-14 md:h-14"
+        "relative flex-shrink-0 flex items-center justify-center",
+        isFooter
+          ? "w-10 h-10 sm:w-11 sm:h-11"
+          : "transition-all duration-500 group-hover:scale-110 w-12 h-12 md:w-14 md:h-14"
       )}>
-        {isFooter && (
-          <>
-            <div className="absolute inset-0 bg-emerald-500/10 blur-xl rounded-full animate-pulse"></div>
-            <div className="absolute inset-0 border border-emerald-500/20 rounded-full scale-110 group-hover:scale-125 transition-transform duration-700"></div>
-          </>
-        )}
-        
         <img 
           src={publicAssetUrl("logo.png")}
           alt="Farm Masters Village III Logo" 

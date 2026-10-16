@@ -2,12 +2,11 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { 
+import {
   Facebook,
-  MapPin, 
-  Mail, 
-  Phone, 
-  ShieldCheck
+  MapPin,
+  Mail,
+  Phone,
 } from 'lucide-react';
 import Logo from './Logo';
 
@@ -15,77 +14,74 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#14251e] text-white py-10 md:py-16 overflow-hidden relative">
-      {/* Subtle Top Border Gradient */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent"></div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-7 md:gap-10 lg:gap-8">
-          
-          {/* Brand & Description */}
-          <div className="flex flex-col items-center lg:items-start max-w-xs text-center lg:text-left">
-            <Logo variant="footer" className="mb-4" />
-            <p className="text-white/55 text-sm leading-relaxed">
-              “Experience a premium, flood-free community in San Miguel, Bulacan—where modern living meets timeless tranquility.”
-            </p>
+    <footer className="bg-[#14251e] text-white">
+      <div className="mx-auto max-w-7xl px-5 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-8 sm:px-6 sm:pt-9 lg:px-8 lg:pt-10">
+        <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(7.5rem,0.55fr)_minmax(0,1.25fr)] md:gap-8">
+          <div>
+            <Logo variant="footer" className="mb-2" />
+            <p className="text-sm leading-5 text-white/65">Find a place to call home.</p>
           </div>
 
-          {/* Contact Info */}
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10">
-            <div className="flex items-center gap-3 group">
-              <MapPin size={16} className="text-emerald-300" />
-              <div className="text-center md:text-left">
-                <p className="text-[10px] font-semibold text-emerald-200/70 uppercase tracking-widest">Location</p>
-                <p className="text-xs font-medium text-white/90">Pulong Bayabas, San Miguel, Bulacan</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 group">
-              <Phone size={16} className="text-emerald-300" />
-              <div className="text-center md:text-left">
-                <p className="text-[10px] font-semibold text-emerald-200/70 uppercase tracking-widest">Call us</p>
-                <a href="tel:09760638627" className="text-xs font-medium text-white/90 hover:text-emerald-200">0976 063 8627</a>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 group">
-              <Mail size={16} className="text-emerald-300" />
-              <div className="text-center md:text-left">
-                <p className="text-[10px] font-semibold text-emerald-200/70 uppercase tracking-widest">Email</p>
-                <a href="mailto:analizacatacutan24@gmail.com" className="text-xs font-medium text-white/90 hover:text-emerald-200">analizacatacutan24@gmail.com</a>
-              </div>
-            </div>
-          </div>
-
-          <nav aria-label="Footer navigation" className="flex flex-wrap justify-center gap-x-5 gap-y-3 text-xs font-medium text-white/70">
-            <Link to="/#properties" className="hover:text-white transition-colors">Homes</Link>
-            <Link to="/#highlights" className="hover:text-white transition-colors">Neighborhood</Link>
-            <Link to="/#visit" className="hover:text-white transition-colors">Location</Link>
-            <Link to="/contact" className="hover:text-white transition-colors">Schedule a viewing</Link>
+          <nav aria-label="Footer navigation">
+            <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-emerald-200/80">Explore</h2>
+            <ul className="flex flex-wrap gap-x-5 md:flex-col md:gap-0">
+              <li>
+                <Link to="/" className="inline-flex min-h-10 items-center text-sm text-white/75 transition-colors hover:text-white">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/#properties" className="inline-flex min-h-10 items-center text-sm text-white/75 transition-colors hover:text-white">
+                  Properties
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="inline-flex min-h-10 items-center text-sm text-white/75 transition-colors hover:text-white">
+                  Contact
+                </Link>
+              </li>
+            </ul>
           </nav>
 
-          {/* Social Links */}
-          <div className="flex gap-3" aria-label="Social media">
-            <a 
-              href="https://www.facebook.com/fmastersv" 
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Farm Masters Village on Facebook"
-              className="w-10 h-10 bg-white/5 text-emerald-400 rounded-xl flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all duration-300 border border-white/5"
-            >
-              <Facebook size={18} />
-            </a>
-          </div>
+          <section aria-labelledby="footer-contact-heading">
+            <h2 id="footer-contact-heading" className="mb-3 text-xs font-semibold uppercase tracking-wider text-emerald-200/80">
+              Contact
+            </h2>
+            <ul className="grid gap-2 text-sm leading-5 text-white/75">
+              <li className="flex min-w-0 items-start gap-2.5">
+                <MapPin aria-hidden="true" size={16} className="mt-0.5 shrink-0 text-emerald-300" />
+                <span>Pulong Bayabas, San Miguel, Bulacan</span>
+              </li>
+              <li className="flex min-w-0 items-start gap-2.5">
+                <Phone aria-hidden="true" size={16} className="mt-0.5 shrink-0 text-emerald-300" />
+                <a href="tel:09760638627" className="min-w-0 break-all transition-colors hover:text-white">
+                  0976 063 8627
+                </a>
+              </li>
+              <li className="flex min-w-0 items-start gap-2.5">
+                <Mail aria-hidden="true" size={16} className="mt-0.5 shrink-0 text-emerald-300" />
+                <a href="mailto:analizacatacutan24@gmail.com" className="min-w-0 break-all transition-colors hover:text-white">
+                  analizacatacutan24@gmail.com
+                </a>
+              </li>
+              <li className="flex min-w-0 items-start gap-2.5">
+                <Facebook aria-hidden="true" size={16} className="mt-0.5 shrink-0 text-emerald-300" />
+                <a
+                  href="https://www.facebook.com/fmastersv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-white"
+                >
+                  Facebook
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </li>
+            </ul>
+          </section>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
-          <div className="flex items-center gap-2 text-emerald-500/30">
-            <ShieldCheck size={14} />
-            <p className="text-[10px] font-bold uppercase tracking-widest">
-              &copy; {currentYear} Farm Masters Village III
-            </p>
-          </div>
+        <div className="mt-6 border-t border-white/10 pt-4 text-xs text-white/50">
+          &copy; {currentYear} Farm Masters Village III
         </div>
       </div>
     </footer>
