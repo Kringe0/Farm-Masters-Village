@@ -15,12 +15,12 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#14251e] text-white py-12 md:py-16 overflow-hidden relative">
+    <footer className="bg-[#14251e] text-white py-10 md:py-16 overflow-hidden relative">
       {/* Subtle Top Border Gradient */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-10 lg:gap-8">
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-7 md:gap-10 lg:gap-8">
           
           {/* Brand & Description */}
           <div className="flex flex-col items-center lg:items-start max-w-xs text-center lg:text-left">
@@ -79,7 +79,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
           <div className="flex items-center gap-2 text-emerald-500/30">
             <ShieldCheck size={14} />
             <p className="text-[10px] font-bold uppercase tracking-widest">

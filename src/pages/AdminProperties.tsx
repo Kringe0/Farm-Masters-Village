@@ -191,10 +191,10 @@ const AdminProperties = () => {
   return (
     <div className="min-h-screen bg-[#fbfaf7]">
       <Navbar />
-      <main className="pt-32 pb-20 px-4 max-w-5xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+      <main className="pt-24 md:pt-32 pb-14 md:pb-20 px-4 max-w-5xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-10 gap-4 md:gap-6">
           <div className="space-y-1">
-            <h1 className="text-3xl md:text-4xl font-semibold text-stone-900 tracking-[-0.04em]">Inventory</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-stone-900 tracking-[-0.04em]">Inventory</h1>
             <p className="text-stone-600">Manage property listings and financial schedules.</p>
           </div>
           <div className="flex gap-3 w-full md:w-auto">
@@ -202,14 +202,14 @@ const AdminProperties = () => {
               onClick={fetchProperties}
               variant="outline"
               disabled={loading}
-              className="rounded-xl border-emerald-100 text-emerald-700 bg-white flex-1 md:flex-none"
+              className="min-h-11 rounded-xl border-emerald-100 text-emerald-700 bg-white flex-1 md:flex-none"
             >
               <RefreshCw size={18} className={cn("mr-2", loading && "animate-spin")} />
               Refresh
             </Button>
             <Button 
               onClick={handleAddNew}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-lg shadow-emerald-200 flex-1 md:flex-none"
+              className="min-h-11 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-lg shadow-emerald-200 flex-1 md:flex-none"
             >
               <Plus size={18} className="mr-2" />
               Add Property
@@ -218,12 +218,12 @@ const AdminProperties = () => {
         </div>
 
         {loading && properties.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-32 text-emerald-600">
+          <div className="flex flex-col items-center justify-center py-16 md:py-32 text-emerald-600">
             <Loader2 size={48} className="animate-spin mb-4" />
             <p className="font-black text-xs uppercase tracking-widest animate-pulse">Loading Inventory...</p>
           </div>
         ) : properties.length === 0 ? (
-          <div className="text-center py-32 bg-white rounded-[2.5rem] border border-dashed border-emerald-200 shadow-sm">
+          <div className="text-center py-16 md:py-32 px-4 bg-white rounded-[2rem] md:rounded-[2.5rem] border border-dashed border-emerald-200 shadow-sm">
             <Home size={48} className="mx-auto text-emerald-100 mb-4" />
             <h3 className="text-xl font-bold text-emerald-950">No properties found</h3>
             <p className="text-emerald-800/40 mt-2 mb-8 font-medium">Start by adding your first property listing.</p>
@@ -293,10 +293,10 @@ const AdminProperties = () => {
                   </div>
 
                   {isEditing && (
-                    <CardContent className="p-6 md:p-10 bg-white animate-in slide-in-from-top-2 duration-300">
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12">
-                        <div className="space-y-8">
-                          <div className="space-y-6">
+                    <CardContent className="p-4 sm:p-6 md:p-10 bg-white animate-in slide-in-from-top-2 duration-300">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12">
+                        <div className="space-y-6 md:space-y-8">
+                          <div className="space-y-4 md:space-y-6">
                             <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-600 flex items-center gap-2">
                               <div className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></div>
                               General Information
@@ -372,7 +372,7 @@ const AdminProperties = () => {
                                 </div>
                               </div>
 
-                              <div className="grid grid-cols-3 gap-4">
+                              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 <div className="space-y-2">
                                   <label className="text-[10px] font-bold uppercase text-emerald-900/40 ml-1">Lot Area</label>
                                   <Input value={prop.lot_area} onChange={(e) => handleChange(idx, 'lot_area', e.target.value)} className="rounded-xl border-emerald-100 h-12" />
@@ -409,7 +409,7 @@ const AdminProperties = () => {
                                 </div>
                               </div>
 
-                              <div className="bg-emerald-50/50 p-6 md:p-8 rounded-[1.5rem] border border-emerald-100">
+                              <div className="bg-emerald-50/50 p-4 sm:p-6 md:p-8 rounded-[1.25rem] md:rounded-[1.5rem] border border-emerald-100">
                                 <label className="text-[10px] font-black uppercase text-emerald-900/40 block mb-6 tracking-widest">Monthly Amortization Schedule</label>
                                 <div className="grid grid-cols-2 gap-x-6 gap-y-5">
                                   {prop.amortization.map((amort, aIdx) => (

@@ -56,27 +56,27 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 bg-[#14251e] text-white overflow-hidden relative min-h-[80vh] flex items-center">
+    <section id="contact" className="py-12 md:py-24 bg-[#14251e] text-white overflow-hidden relative">
       <div className="absolute top-0 right-0 w-1/2 h-full bg-emerald-900/20 -skew-x-12 translate-x-1/4 pointer-events-none"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="text-center mb-10 md:mb-14">
-          <h2 className="text-emerald-300 font-semibold tracking-[0.16em] uppercase text-[10px] md:text-xs mb-3">Get in touch</h2>
-          <h3 className="text-3xl md:text-5xl font-semibold tracking-[-0.04em] mb-4">Let’s talk about your new home.</h3>
-          <p className="text-white/65 text-base md:text-lg max-w-2xl mx-auto">
+        <div className="text-center mb-8 md:mb-14">
+          <h2 className="text-emerald-300 font-semibold tracking-[0.16em] uppercase text-[10px] md:text-xs mb-2 md:mb-3">Get in touch</h2>
+          <h3 className="text-2xl sm:text-3xl md:text-5xl font-semibold tracking-[-0.04em] mb-3 md:mb-4">Let’s talk about your new home.</h3>
+          <p className="text-white/65 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             Connect with our official development team for site viewings, investment consultations, and exclusive property details.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-12 items-start">
-          <div className="lg:col-span-5 space-y-8 md:space-y-10">
-            <div className="bg-white/[0.06] backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
-              <h4 className="text-xl font-semibold mb-6 flex items-center gap-3">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 md:gap-12 items-start">
+          <div className="lg:col-span-5 space-y-5 md:space-y-10">
+            <div className="bg-white/[0.06] backdrop-blur-sm border border-white/10 rounded-2xl p-5 md:p-8">
+              <h4 className="text-lg md:text-xl font-semibold mb-4 md:mb-6 flex items-center gap-3">
                 <span className="w-7 h-px bg-emerald-300"></span>
                 Contact Us
               </h4>
               
-              <div className="space-y-6 md:space-y-8">
+              <div className="space-y-4 md:space-y-8">
                 <div className="flex items-start gap-4 md:gap-5">
                   <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-emerald-200 flex-shrink-0">
                     <Phone size={20} />
@@ -112,7 +112,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 p-5 bg-white/[0.04] rounded-xl border border-white/10">
+            <div className="flex items-center gap-4 p-4 sm:p-5 bg-white/[0.04] rounded-xl border border-white/10">
               <ShieldCheck className="text-emerald-200 flex-shrink-0" size={20} />
               <p className="text-xs md:text-sm text-white/65">
                 Your inquiry is handled directly by our licensed development consultants. We value your privacy and data security.
@@ -121,9 +121,9 @@ const Contact = () => {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="bg-white rounded-2xl p-6 md:p-10 shadow-xl text-stone-900">
-              <form onSubmit={handleSubmit} aria-busy={isSubmitting} className="space-y-6 md:space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-10 shadow-xl text-stone-900">
+              <form onSubmit={handleSubmit} aria-busy={isSubmitting} className="space-y-5 md:space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                   <div className="space-y-2 md:space-y-3">
                     <label htmlFor="inquiry-name" className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Full name</label>
                     <Input 
@@ -133,7 +133,7 @@ const Contact = () => {
                       autoComplete="name"
                       minLength={2}
                       maxLength={100}
-                      className="h-12 bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
+                      className="h-12 text-base lg:text-sm bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
                       required 
                     />
                   </div>
@@ -146,13 +146,13 @@ const Contact = () => {
                       placeholder="email@example.com" 
                       autoComplete="email"
                       maxLength={254}
-                      className="h-12 bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
+                      className="h-12 text-base lg:text-sm bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
                       required 
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                   <div className="space-y-2 md:space-y-3">
                     <label htmlFor="inquiry-phone" className="text-stone-700 font-semibold text-xs uppercase tracking-wider">Phone number</label>
                     <Input 
@@ -163,7 +163,7 @@ const Contact = () => {
                       placeholder="+63 900 000 0000"
                       pattern="[+]?[0-9][0-9\s.\(\)\-]{6,19}"
                       title="Enter a valid phone number using digits, spaces, parentheses, or hyphens."
-                      className="h-12 bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
+                      className="h-12 text-base lg:text-sm bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 rounded-lg"
                       required 
                     />
                   </div>
@@ -173,7 +173,7 @@ const Contact = () => {
                       id="inquiry-interest"
                       name="interest"
                       required
-                      className="w-full h-12 bg-stone-50 border border-stone-200 text-stone-900 focus:ring-2 focus:ring-emerald-800 rounded-lg px-4 outline-none appearance-none text-sm md:text-base"
+                      className="w-full h-12 bg-stone-50 border border-stone-200 text-stone-900 focus:ring-2 focus:ring-emerald-800 rounded-lg px-4 outline-none appearance-none text-base"
                     >
                       <option>Featured 3-Bedroom Home (₱3,500,000)</option>
                       <option>Rowhouse Inner Unit</option>
@@ -192,7 +192,7 @@ const Contact = () => {
                     placeholder="Tell us about your requirements..." 
                     minLength={10}
                     maxLength={2000}
-                    className="bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 min-h-[130px] rounded-lg p-4 text-sm md:text-base"
+                    className="bg-stone-50 border-stone-200 text-stone-900 focus-visible:ring-emerald-800 min-h-28 md:min-h-[130px] rounded-lg p-3 sm:p-4 text-base"
                     required 
                   />
                 </div>

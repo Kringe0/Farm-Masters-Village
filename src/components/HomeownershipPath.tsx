@@ -38,14 +38,14 @@ const HomeownershipPath = () => {
   ];
 
   return (
-    <section id="journey" className="py-20 md:py-28 bg-[#fbfaf7] overflow-hidden scroll-mt-24">
+    <section id="journey" className="py-12 md:py-28 bg-[#fbfaf7] overflow-hidden scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 md:mb-24">
-          <h2 className="text-emerald-800 font-semibold tracking-[0.16em] uppercase text-[10px] md:text-xs mb-3">The process</h2>
-          <h3 className="text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.04em] mb-4">
+        <div className="text-center mb-9 md:mb-24">
+          <h2 className="text-emerald-800 font-semibold tracking-[0.16em] uppercase text-[10px] md:text-xs mb-2 md:mb-3">The process</h2>
+          <h3 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.04em] mb-3 md:mb-4">
             Your path to homeownership
           </h3>
-          <p className="text-stone-600 text-base md:text-lg max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-stone-600 max-w-2xl mx-auto">
             We've simplified the process to make owning your dream home in San Miguel as smooth and transparent as possible.
           </p>
         </div>
@@ -54,11 +54,11 @@ const HomeownershipPath = () => {
           {/* Connecting Line (Desktop) */}
           <div className="hidden lg:block absolute top-10 left-[10%] w-[80%] h-px bg-stone-200 z-0"></div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 md:gap-8 relative z-10">
             {steps.map((step, index) => (
               <div key={index} className="group flex flex-col items-center text-center">
                 {/* Icon Circle */}
-                <div className={`w-20 h-20 ${step.color} rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-white transition-transform duration-300 group-hover:-translate-y-1 relative`}>
+                <div className={`w-16 h-16 md:w-20 md:h-20 ${step.color} rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-sm border border-white transition-transform duration-300 group-hover:-translate-y-1 relative`}>
                   <step.icon size={30} />
                   
                   {/* Step Number Badge */}
@@ -67,7 +67,7 @@ const HomeownershipPath = () => {
                   </div>
                 </div>
 
-                <h4 className="text-lg md:text-xl font-semibold text-stone-900 mb-3 tracking-tight">{step.title}</h4>
+                <h4 className="text-base md:text-xl font-semibold text-stone-900 mb-2 md:mb-3 tracking-tight">{step.title}</h4>
                 <p className="text-stone-600 text-sm leading-relaxed px-2">
                   {step.desc}
                 </p>
@@ -75,7 +75,7 @@ const HomeownershipPath = () => {
                 {/* Arrow for Mobile/Tablet */}
                 {index < steps.length - 1 && (
                   <div className="lg:hidden mt-8 text-emerald-200">
-                    <ArrowRight className="rotate-90 md:rotate-0" size={24} />
+                    <ArrowRight className="rotate-90 md:rotate-0" size={20} />
                   </div>
                 )}
               </div>

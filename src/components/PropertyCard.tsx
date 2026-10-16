@@ -17,8 +17,10 @@ import {
   Car
 } from 'lucide-react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn, publicAssetUrl } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 import {
   Dialog,
   DialogContent,
@@ -39,6 +41,7 @@ interface PropertyProps {
   title: string;
   location: string;
   price: string;
+  priceLabel?: string;
   lotArea: string;
   floorArea?: string;
   beds: number;
@@ -82,6 +85,7 @@ const PropertyCard = ({
   title, 
   location, 
   price, 
+  priceLabel = "Total contract price",
   lotArea, 
   floorArea, 
   beds, 
@@ -97,7 +101,6 @@ const PropertyCard = ({
   const [currentImageIndex, setCurrentImageIndex] = useState<number | null>(null);
 
   const allImages = [image, ...interiorImages];
-
   const openLightbox = (imgList: string[], index: number) => {
     setActiveGallery(imgList);
     setCurrentImageIndex(index);
@@ -127,6 +130,14 @@ const PropertyCard = ({
     return val.replace(/carpark/gi, '').trim();
   };
 
+  const propertyStats = [
+    { icon: Maximize2, label: "Lot Area", value: lotArea },
+    { icon: Home, label: "Floor Area", value: floorArea },
+    { icon: BedDouble, label: "Provision", value: beds > 1 ? `${beds} Bedrooms` : `${beds} Bedroom` },
+    { icon: Bath, label: "Toilet & Bath", value: baths },
+    ...(carpark ? [{ icon: Car, label: "Carpark", value: cleanCarpark(carpark) }] : [])
+  ];
+
   return (
     <>
       <Card className="group overflow-hidden border border-stone-200 bg-white flex flex-col h-full transition-all duration-300 hover:shadow-xl hover:shadow-stone-900/5 hover:border-emerald-900/25 rounded-2xl">
@@ -134,7 +145,7 @@ const PropertyCard = ({
         <button
           type="button"
           aria-label={`View photos of ${title}`}
-          className="relative block w-full h-60 md:h-64 overflow-hidden cursor-zoom-in group/img text-left"
+          className="relative block w-full h-52 sm:h-60 md:h-64 overflow-hidden cursor-zoom-in group/img text-left"
           onClick={() => openLightbox([image], 0)}
         >
           <img 
@@ -162,8 +173,8 @@ const PropertyCard = ({
         </button>
 
         {/* Content Section */}
-        <CardContent className="p-6 md:p-8 flex-grow flex flex-col">
-          <div className="mb-5 md:mb-6">
+        <CardContent className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col">
+          <div className="mb-4 md:mb-6">
             <p className="text-emerald-800 font-semibold text-[10px] uppercase tracking-[0.14em] mb-2">{propertyType}</p>
             <h3 className="text-xl md:text-[1.35rem] font-semibold text-stone-900 leading-snug mb-2 group-hover:text-emerald-800 transition-colors">
               {title}
@@ -175,58 +186,73 @@ const PropertyCard = ({
           </div>
           
           {/* Specs Grid - With Labels for Main Card */}
-          <div className="grid grid-cols-2 gap-3 p-4 bg-stone-50 rounded-xl border border-stone-100 mb-5">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3 p-3 sm:p-4 bg-stone-50 rounded-xl border border-stone-100 mb-4 md:mb-5">
             <div className="flex items-center gap-2 md:gap-3">
               <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-white flex items-center justify-center text-emerald-600 shadow-sm">
-                <Maximize2 size={14} />
+                <Maximize2 size={14} aria-hidden="true" />
               </div>
-              <span className="text-[10px] md:text-xs text-emerald-900 font-bold">{lotArea}</span>
+              <div>
+                <span className="block text-[9px] uppercase tracking-wide text-stone-500">Lot area</span>
+                <span className="text-xs text-emerald-900 font-bold">{lotArea}</span>
+              </div>
             </div>
             <div className="flex items-center gap-2 md:gap-3">
               <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-white flex items-center justify-center text-emerald-600 shadow-sm">
-                <Home size={14} />
+                <Home size={14} aria-hidden="true" />
               </div>
-              <span className="text-[10px] md:text-xs text-emerald-900 font-bold">{floorArea || 'N/A'}</span>
+              <div>
+                <span className="block text-[9px] uppercase tracking-wide text-stone-500">Floor area</span>
+                <span className="text-xs text-emerald-900 font-bold">{floorArea || 'N/A'}</span>
+              </div>
             </div>
             <div className="flex items-center gap-2 md:gap-3">
               <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-white flex items-center justify-center text-emerald-600 shadow-sm">
-                <BedDouble size={14} />
+                <BedDouble size={14} aria-hidden="true" />
               </div>
-              <span className="text-[10px] md:text-xs text-emerald-900 font-bold">{beds} Bed</span>
+              <div>
+                <span className="block text-[9px] uppercase tracking-wide text-stone-500">Bedrooms</span>
+                <span className="text-xs text-emerald-900 font-bold">{beds}</span>
+              </div>
             </div>
             <div className="flex items-center gap-2 md:gap-3">
               <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-white flex items-center justify-center text-emerald-600 shadow-sm">
-                <Bath size={14} />
+                <Bath size={14} aria-hidden="true" />
               </div>
-              <span className="text-[10px] md:text-xs text-emerald-900 font-bold">{baths} Bath</span>
+              <div>
+                <span className="block text-[9px] uppercase tracking-wide text-stone-500">Bathrooms</span>
+                <span className="text-xs text-emerald-900 font-bold">{baths}</span>
+              </div>
             </div>
             {carpark && (
               <div className="flex items-center gap-2 md:gap-3 col-span-2 border-t border-emerald-100/50 pt-3 mt-1">
                 <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-white flex items-center justify-center text-emerald-600 shadow-sm">
-                  <Car size={14} />
+                  <Car size={14} aria-hidden="true" />
                 </div>
-                <span className="text-[10px] md:text-xs text-emerald-900 font-bold">{cleanCarpark(carpark)} Carpark</span>
+                <div>
+                  <span className="block text-[9px] uppercase tracking-wide text-stone-500">Parking</span>
+                  <span className="text-xs text-emerald-900 font-bold">{cleanCarpark(carpark)} Carpark</span>
+                </div>
               </div>
             )}
           </div>
 
           {/* Simplified TCP Price */}
           <div className="mt-auto pt-4 border-t border-stone-100 flex flex-col">
-            <span className="text-[10px] text-stone-500 font-semibold uppercase tracking-widest mb-1">Total contract price</span>
-            <span className="text-2xl font-semibold text-stone-900 tracking-tight">{price}</span>
+            <span className="text-[10px] text-stone-500 font-semibold uppercase tracking-widest mb-1">{priceLabel}</span>
+            <span className="text-xl sm:text-2xl font-semibold text-stone-900 tracking-tight">{price}</span>
           </div>
         </CardContent>
 
         {/* Footer Action */}
-        <CardFooter className="p-6 md:p-7 pt-0">
+        <CardFooter className="p-4 sm:p-6 md:p-7 pt-0">
           <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
             <DialogTrigger asChild>
-              <button className="w-full py-3.5 bg-emerald-900 text-white text-sm font-semibold rounded-lg hover:bg-emerald-800 transition-colors flex items-center justify-center gap-2">
+              <button className="w-full min-h-12 bg-emerald-900 text-white text-sm font-semibold rounded-lg hover:bg-emerald-800 transition-colors flex items-center justify-center gap-2">
                 View Full Details
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border-none shadow-2xl z-[150] p-0 [&>button:not([data-custom-close])]:hidden">
+            <DialogContent className="w-[calc(100%-1rem)] sm:w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border-none shadow-2xl z-[150] p-0 [&>button:not([data-custom-close])]:hidden">
               <DialogTitle className="sr-only">{title} details</DialogTitle>
               <DialogDescription className="sr-only">Property photos, features, and pricing information.</DialogDescription>
               {/* Professional Custom Close Button - Fixed Position */}
@@ -264,22 +290,26 @@ const PropertyCard = ({
                     </div>
                   </div>
 
-                  <div className="p-6 md:p-12 space-y-10 md:space-y-12 bg-white">
+                  <div className="p-4 sm:p-6 md:p-12 space-y-7 md:space-y-12 bg-white">
                     {/* Quick Stats - Clean Numbers Only for Dialog */}
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
-                      {[
-                        { icon: Maximize2, label: "Lot Area", value: lotArea },
-                        { icon: Home, label: "Floor Area", value: floorArea },
-                        { icon: BedDouble, label: "Provision", value: beds > 1 ? `${beds} Bedrooms` : `${beds} Bedroom` },
-                        { icon: Bath, label: "Toilet & Bath", value: baths },
-                        { icon: Car, label: "Carpark", value: cleanCarpark(carpark) || '0' }
-                      ].map((stat, i) => (
+                      {propertyStats.map((stat, i) => (
                         <div key={i} className="bg-emerald-50 p-4 md:p-6 rounded-[1.25rem] md:rounded-[1.5rem] border border-emerald-100">
                           <stat.icon size={18} className="text-emerald-600 mb-2 md:mb-3" />
                           <p className="text-[8px] md:text-[10px] text-emerald-600/60 font-black uppercase tracking-widest mb-1">{stat.label}</p>
                           <p className="text-base md:text-lg font-bold text-emerald-950">{stat.value}</p>
                         </div>
                       ))}
+                    </div>
+
+                    <div className="flex flex-col gap-3 border-b border-stone-100 pb-6 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <p className="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Price</p>
+                        <p className="mt-1 text-2xl font-semibold tracking-tight text-stone-900">{price}</p>
+                      </div>
+                      <Button asChild className="min-h-12 w-full rounded-lg bg-emerald-900 text-sm font-semibold text-white hover:bg-emerald-800 sm:w-auto">
+                        <Link to="/contact">Ask about this home</Link>
+                      </Button>
                     </div>
 
                     {/* Description */}

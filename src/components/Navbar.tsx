@@ -67,7 +67,7 @@ const Navbar = () => {
   return (
     <nav className={cn(
       "fixed inset-x-0 top-0 z-[100] transition-all duration-300",
-      !isTransparent ? "bg-white/95 backdrop-blur-xl py-3 shadow-sm border-b border-stone-200/80" : "bg-gradient-to-b from-black/20 to-transparent py-5"
+      !isTransparent ? "bg-white/95 backdrop-blur-xl py-2.5 md:py-3 shadow-sm border-b border-stone-200/80" : "bg-gradient-to-b from-black/20 to-transparent py-3 md:py-5"
     )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center min-h-12">
@@ -147,7 +147,10 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={cn(
+      <div
+        aria-hidden={!isOpen}
+        inert={!isOpen}
+        className={cn(
         "absolute top-full left-0 w-full bg-white border-b border-stone-200 shadow-xl md:hidden transition-all duration-300 ease-in-out overflow-hidden",
         isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
       )}>

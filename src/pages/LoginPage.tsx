@@ -42,7 +42,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fbfaf7] flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[#fbfaf7] flex flex-col items-center justify-center p-3 sm:p-4 relative overflow-hidden">
       {/* Decorative Background */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-100 rounded-full blur-3xl opacity-50"></div>
@@ -50,12 +50,12 @@ const LoginPage = () => {
       </div>
 
       <div className="w-full max-w-md relative z-10">
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-6 sm:mb-8">
           <Logo variant="dark" />
         </div>
 
         <Card className="rounded-2xl border-stone-200 shadow-xl shadow-stone-900/5 overflow-hidden">
-          <CardHeader className="bg-stone-50 border-b border-stone-200 p-8 text-center">
+          <CardHeader className="bg-stone-50 border-b border-stone-200 p-5 sm:p-8 text-center">
             <div className="w-12 h-12 bg-emerald-800 rounded-xl flex items-center justify-center text-white mx-auto mb-4 shadow-sm">
               <ShieldCheck size={24} />
             </div>
@@ -64,8 +64,8 @@ const LoginPage = () => {
               Secure access for authorized personnel only.
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-8">
-            <form onSubmit={handleLogin} className="space-y-6">
+          <CardContent className="p-5 sm:p-8">
+            <form onSubmit={handleLogin} className="space-y-5 sm:space-y-6">
               <div className="space-y-2">
                 <label htmlFor="admin-email" className="text-[10px] font-black uppercase tracking-widest text-emerald-900/50 ml-1">Email Address</label>
                 <div className="relative">
@@ -77,7 +77,7 @@ const LoginPage = () => {
                     autoComplete="username"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-12 h-14 rounded-xl border-emerald-100 bg-emerald-50/30 focus-visible:ring-emerald-600"
+                    className="pl-12 h-12 sm:h-14 text-base lg:text-sm rounded-xl border-emerald-100 bg-emerald-50/30 focus-visible:ring-emerald-600"
                     required
                   />
                 </div>
@@ -94,7 +94,7 @@ const LoginPage = () => {
                     autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-12 h-14 rounded-xl border-emerald-100 bg-emerald-50/30 focus-visible:ring-emerald-600"
+                    className="pl-12 h-12 sm:h-14 text-base lg:text-sm rounded-xl border-emerald-100 bg-emerald-50/30 focus-visible:ring-emerald-600"
                     required
                   />
                 </div>
@@ -103,7 +103,7 @@ const LoginPage = () => {
               <Button 
                 type="submit" 
                 disabled={loading}
-                className="w-full h-14 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-lg shadow-lg shadow-emerald-200 transition-all active:scale-95"
+                className="w-full min-h-12 sm:h-14 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-base sm:text-lg shadow-lg shadow-emerald-200 transition-all active:scale-95"
               >
                 {loading ? <Loader2 className="animate-spin mr-2" size={20} /> : "Sign In to Dashboard"}
               </Button>
@@ -113,7 +113,7 @@ const LoginPage = () => {
 
         <button 
           onClick={() => navigate('/')}
-          className="mt-8 flex items-center gap-2 text-emerald-900/40 hover:text-emerald-600 font-bold text-sm transition-colors mx-auto"
+          className="mt-6 sm:mt-8 min-h-11 flex items-center gap-2 text-emerald-900/40 hover:text-emerald-600 font-bold text-sm transition-colors mx-auto"
         >
           <ArrowLeft size={16} />
           Back to Website

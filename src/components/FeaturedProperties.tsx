@@ -119,49 +119,64 @@ const FeaturedProperties = () => {
   }, []);
 
   return (
-    <section id="properties" className="py-20 md:py-28 bg-[#fbfaf7] relative overflow-hidden scroll-mt-24">
+    <section id="properties" className="py-12 md:py-28 bg-[#fbfaf7] relative overflow-hidden scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="mb-10 md:mb-14 max-w-2xl">
-          <p className="text-emerald-800 font-semibold tracking-[0.16em] uppercase text-[10px] md:text-xs mb-3">Find your place</p>
-          <h2 className="text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.04em] mb-4">
+        <div className="mb-8 md:mb-14 max-w-2xl">
+          <p className="text-emerald-800 font-semibold tracking-[0.16em] uppercase text-[10px] md:text-xs mb-2 md:mb-3">Find your place</p>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.04em] mb-3 md:mb-4">
             Homes made for living well.
           </h2>
-          <p className="text-stone-600 text-base md:text-lg leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed text-stone-600">
             Explore available homes in Farm Masters Village III, thoughtfully planned for everyday comfort in San Miguel, Bulacan.
           </p>
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="flex h-full">
+            <PropertyCard
+              image="hero-bg.jpg"
+              title="Brand-new 3-bedroom home"
+              location="Farm Masters Village, San Miguel, Bulacan"
+              price="₱3,500,000"
+              priceLabel="Asking price"
+              propertyType="Featured home"
+              lotArea="120 sqm"
+              floorArea="80 sqm"
+              beds={3}
+              baths={2}
+              tag="Brand-new"
+              description="A brand-new three-bedroom, two-bathroom home with a 120 sqm lot and 80 sqm floor area in Farm Masters Village, San Miguel, Bulacan."
+            />
+          </div>
+          {!loading && !fetchError && properties.map((prop, index) => (
+            <div key={`${prop.title}-${index}`} className="flex h-full">
+              <PropertyCard {...prop} />
+            </div>
+          ))}
+        </div>
         {loading ? (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-stone-200 bg-white py-16 text-emerald-800" role="status">
-            <Loader2 size={32} className="animate-spin mb-3" />
-            <p className="text-sm font-medium">Loading available homes…</p>
+          <div className="mt-5 flex items-center justify-center gap-3 rounded-xl border border-stone-200 bg-white py-4 text-emerald-800" role="status">
+            <Loader2 size={20} className="animate-spin" />
+            <p className="text-sm font-medium">Loading additional homes…</p>
           </div>
         ) : fetchError ? (
-          <div className="rounded-2xl border border-stone-200 bg-white px-6 py-10 text-center">
+          <div className="mt-5 rounded-2xl border border-stone-200 bg-white px-6 py-8 text-center">
             <SearchX className="mx-auto mb-3 text-emerald-800" size={28} />
-            <h3 className="font-semibold text-stone-900">Property listings are temporarily unavailable</h3>
-            <p className="mt-2 text-sm text-stone-600">Contact us for current availability and details.</p>
+            <h3 className="font-semibold text-stone-900">More listings are temporarily unavailable</h3>
+            <p className="mt-2 text-sm text-stone-600">The featured home is still available to explore. Contact us for current details.</p>
             <Link to="/contact" className="mt-5 inline-flex min-h-11 items-center rounded-lg bg-emerald-900 px-5 text-sm font-semibold text-white hover:bg-emerald-800">
               Ask about this home
             </Link>
           </div>
-        ) : properties.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-            {properties.map((prop, index) => (
-              <div key={index} className="flex h-full">
-                <PropertyCard {...prop} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="rounded-2xl border border-stone-200 bg-white px-6 py-12 text-center">
+        ) : properties.length === 0 ? (
+          <div className="mt-5 rounded-2xl border border-stone-200 bg-white px-6 py-8 text-center">
             <SearchX className="mx-auto mb-3 text-emerald-800" size={28} />
-            <h3 className="font-semibold text-stone-900">No properties to show right now</h3>
-            <p className="mt-2 text-sm text-stone-600">Contact us for current availability and details.</p>
+            <h3 className="font-semibold text-stone-900">No additional listings to show right now</h3>
+            <p className="mt-2 text-sm text-stone-600">Contact us to ask about the featured home or future availability.</p>
             <Link to="/contact" className="mt-5 inline-flex min-h-11 items-center rounded-lg bg-emerald-900 px-5 text-sm font-semibold text-white hover:bg-emerald-800">
-              Ask about this home
+              Contact the agent
             </Link>
           </div>
-        )}
+        ) : null}
       </div>
     </section>
   );

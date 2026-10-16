@@ -111,13 +111,13 @@ const AdminInquiries = () => {
     <div className="min-h-screen bg-[#fbfaf7]">
       <Navbar />
       <main className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-12 gap-4 md:gap-6">
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-emerald-600 font-black text-[10px] uppercase tracking-[0.3em]">
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
               Live Dashboard
             </div>
-            <h1 className="text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.04em]">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.04em]">
               Client <span className="text-emerald-600">Inquiries</span>
             </h1>
             <p className="text-emerald-800/50 font-medium text-sm md:text-base">
@@ -143,7 +143,7 @@ const AdminInquiries = () => {
 
         <div className="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden">
           {loading && inquiries.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-32 text-emerald-600">
+            <div className="flex flex-col items-center justify-center py-16 md:py-32 text-emerald-600">
               <div className="relative">
                 <Loader2 size={48} className="animate-spin mb-4" />
                 <div className="absolute inset-0 blur-xl bg-emerald-400/20 animate-pulse"></div>
@@ -151,8 +151,8 @@ const AdminInquiries = () => {
               <p className="font-black text-xs uppercase tracking-widest animate-pulse">Syncing Database...</p>
             </div>
           ) : inquiries.length === 0 ? (
-            <div className="text-center py-32 px-6">
-              <div className="w-24 h-24 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-200 mx-auto mb-8">
+            <div className="text-center py-16 md:py-32 px-4 sm:px-6">
+              <div className="w-16 h-16 md:w-24 md:h-24 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-200 mx-auto mb-5 md:mb-8">
                 <MessageSquare size={48} />
               </div>
               <h3 className="text-2xl font-black text-emerald-950 tracking-tight">No inquiries yet</h3>
@@ -233,8 +233,8 @@ const AdminInquiries = () => {
 
               <div className="lg:hidden divide-y divide-emerald-50">
                 {inquiries.map((inquiry) => (
-                  <div key={inquiry.id} className="p-6 space-y-6 hover:bg-emerald-50/30 transition-colors animate-in fade-in slide-in-from-top-4 duration-500">
-                    <div className="flex justify-between items-start">
+                  <div key={inquiry.id} className="p-4 sm:p-6 space-y-4 sm:space-y-6 hover:bg-emerald-50/30 transition-colors animate-in fade-in slide-in-from-top-4 duration-500">
+                    <div className="flex flex-col sm:flex-row sm:justify-between items-start gap-2 sm:gap-3">
                       <div className="space-y-1">
                         <h4 className="text-lg font-black text-emerald-950 tracking-tight">{inquiry.name}</h4>
                         <div className="flex items-center gap-2 text-[10px] font-black text-emerald-800/40 uppercase tracking-widest">
@@ -244,7 +244,7 @@ const AdminInquiries = () => {
                           {format(new Date(inquiry.created_at), 'hh:mm a')}
                         </div>
                       </div>
-                      <Badge className="bg-emerald-100 text-emerald-700 border-none px-3 py-1 rounded-lg font-black text-[9px] uppercase tracking-widest">
+                      <Badge className="max-w-full whitespace-normal break-words bg-emerald-100 text-emerald-700 border-none px-3 py-1 rounded-lg font-black text-[9px] uppercase tracking-widest">
                         {inquiry.interest}
                       </Badge>
                     </div>
@@ -254,11 +254,11 @@ const AdminInquiries = () => {
                         onClick={() => copyToClipboard(inquiry.email, `m-email-${inquiry.id}`)}
                         className="flex items-center justify-between w-full p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100/50 active:scale-[0.98] transition-all"
                       >
-                        <div className="flex items-center gap-3">
+                        <div className="flex min-w-0 items-center gap-3">
                           <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-emerald-600 shadow-sm">
                             <Mail size={14} />
                           </div>
-                          <span className="text-sm font-bold text-emerald-900 truncate max-w-[200px]">{inquiry.email}</span>
+                          <span className="min-w-0 flex-1 text-sm font-bold text-emerald-900 truncate">{inquiry.email}</span>
                         </div>
                         {copiedId === `m-email-${inquiry.id}` ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-emerald-300" />}
                       </button>
@@ -267,7 +267,7 @@ const AdminInquiries = () => {
                         onClick={() => copyToClipboard(inquiry.phone, `m-phone-${inquiry.id}`)}
                         className="flex items-center justify-between w-full p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100/50 active:scale-[0.98] transition-all"
                       >
-                        <div className="flex items-center gap-3">
+                        <div className="flex min-w-0 items-center gap-3">
                           <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-emerald-600 shadow-sm">
                             <Phone size={14} />
                           </div>

@@ -18,13 +18,13 @@ import { publicAssetUrl } from '@/lib/utils';
 
 const AgentProfile = () => {
   return (
-    <section id="agent" className="py-20 md:py-28 bg-[#fbfaf7] overflow-hidden scroll-mt-24">
+    <section id="agent" className="py-12 md:py-28 bg-[#fbfaf7] overflow-hidden scroll-mt-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative bg-white rounded-2xl md:rounded-3xl p-6 md:p-12 border border-stone-200 shadow-sm">
+        <div className="relative bg-white rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-12 border border-stone-200 shadow-sm">
           {/* Decorative Background Element */}
-          <div className="absolute -top-12 -right-12 w-64 h-64 bg-emerald-100/50 rounded-full blur-3xl opacity-50 -z-10"></div>
+          <div className="absolute -top-12 -right-12 hidden w-64 h-64 bg-emerald-100/50 rounded-full blur-3xl opacity-50 -z-10 lg:block"></div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 md:gap-10 lg:gap-16 items-center">
             {/* Image Column */}
             <div className="lg:col-span-4 relative">
               <div className="relative z-10">
@@ -40,11 +40,11 @@ const AgentProfile = () => {
                 </div>
 
                 {/* Experience Seal */}
-                <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-24 h-24 md:w-32 md:h-32 bg-emerald-600 rounded-full flex flex-col items-center justify-center text-white shadow-xl border-4 border-white transform rotate-12 hover:rotate-0 transition-transform duration-500">
+                <div className="absolute -bottom-3 -right-2 sm:-right-4 md:-bottom-6 md:-right-6 w-20 h-20 md:w-32 md:h-32 bg-emerald-600 rounded-full flex flex-col items-center justify-center text-white shadow-xl border-4 border-white transform rotate-12 hover:rotate-0 transition-transform duration-500">
                   <div className="text-center">
-                    <p className="text-[8px] md:text-[10px] font-black uppercase tracking-widest opacity-80">Experience</p>
-                    <p className="text-2xl md:text-4xl font-black leading-none my-0.5">9+</p>
-                    <p className="text-[8px] md:text-[10px] font-black uppercase tracking-widest opacity-80">Years</p>
+                    <p className="text-[7px] md:text-[10px] font-black uppercase tracking-widest opacity-80">Experience</p>
+                    <p className="text-xl md:text-4xl font-black leading-none my-0.5">9+</p>
+                    <p className="text-[7px] md:text-[10px] font-black uppercase tracking-widest opacity-80">Years</p>
                   </div>
                 </div>
               </div>
@@ -52,14 +52,14 @@ const AgentProfile = () => {
 
             {/* Content Column */}
             <div className="lg:col-span-8 space-y-6 md:space-y-8">
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-800 rounded-full text-[10px] font-semibold uppercase tracking-[0.15em] border border-emerald-100">
                   <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div>
                   REAL ESTATE SALESPERSON
                 </div>
                 
                 <div className="flex items-center gap-3 md:gap-4">
-                  <h2 className="text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.045em] leading-tight">
+                  <h2 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-stone-900 tracking-[-0.045em] leading-tight">
                     Analiza Catacutan
                   </h2>
                   <div className="flex-shrink-0 text-blue-500 bg-blue-50 p-1.5 md:p-2 rounded-full shadow-sm border border-blue-100">
@@ -84,7 +84,7 @@ const AgentProfile = () => {
                 "Committed to integrity and excellence, I provide expert guidance to help you secure a future of peace and comfort for your family."
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-6">
                 {[
                   { icon: UserCheck, title: "Personalized Tours", desc: "Tailored site viewings." },
                   { icon: CheckCircle2, title: "Pag-IBIG Expert", desc: "Financing assistance." },
