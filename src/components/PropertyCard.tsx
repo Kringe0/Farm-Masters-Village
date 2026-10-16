@@ -44,8 +44,8 @@ interface PropertyProps {
   priceLabel?: string;
   lotArea: string;
   floorArea?: string;
-  beds: number;
-  baths: number;
+  beds: number | null;
+  baths: number | null;
   carpark?: string;
   tag: string;
   propertyType: string;
@@ -100,7 +100,7 @@ const PropertyCard = ({
   const [activeGallery, setActiveGallery] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState<number | null>(null);
 
-  const allImages = [image, ...interiorImages];
+  const allImages = [image, ...interiorImages].filter(Boolean);
   const openLightbox = (imgList: string[], index: number) => {
     setActiveGallery(imgList);
     setCurrentImageIndex(index);
@@ -131,10 +131,10 @@ const PropertyCard = ({
   };
 
   const propertyStats = [
-    { icon: Maximize2, label: "Lot Area", value: lotArea },
-    { icon: Home, label: "Floor Area", value: floorArea },
-    { icon: BedDouble, label: "Provision", value: beds > 1 ? `${beds} Bedrooms` : `${beds} Bedroom` },
-    { icon: Bath, label: "Toilet & Bath", value: baths },
+    { icon: Maximize2, label: "Lot Area", value: lotArea || "Not provided" },
+    ...(floorArea ? [{ icon: Home, label: "Floor Area", value: floorArea }] : []),
+    ...(beds !== null ? [{ icon: BedDouble, label: "Bedrooms", value: beds === 1 ? "1 Bedroom" : `${beds} Bedrooms` }] : []),
+    ...(baths !== null ? [{ icon: Bath, label: "Bathrooms", value: String(baths) }] : []),
     ...(carpark ? [{ icon: Car, label: "Carpark", value: cleanCarpark(carpark) }] : [])
   ];
 
@@ -142,7 +142,7 @@ const PropertyCard = ({
     <>
       <Card className="group overflow-hidden border border-stone-200 bg-white flex flex-col h-full transition-all duration-300 hover:shadow-xl hover:shadow-stone-900/5 hover:border-emerald-900/25 rounded-2xl">
         {/* Image Section */}
-        <button
+        {image ? <button
           type="button"
           aria-label={`View photos of ${title}`}
           className="relative block w-full h-52 sm:h-60 md:h-64 overflow-hidden cursor-zoom-in group/img text-left"
@@ -170,7 +170,11 @@ const PropertyCard = ({
               {tag}
             </Badge>
           </div>
-        </button>
+        </button> : (
+          <div className="flex h-52 items-center justify-center bg-stone-100 text-sm text-stone-500 sm:h-60 md:h-64">
+            Property photo not provided
+          </div>
+        )}
 
         {/* Content Section */}
         <CardContent className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col">
@@ -202,7 +206,7 @@ const PropertyCard = ({
               </div>
               <div>
                 <span className="block text-[9px] uppercase tracking-wide text-stone-500">Floor area</span>
-                <span className="text-xs text-emerald-900 font-bold">{floorArea || 'N/A'}</span>
+                <span className="text-xs text-emerald-900 font-bold">{floorArea || 'Not provided'}</span>
               </div>
             </div>
             <div className="flex items-center gap-2 md:gap-3">
@@ -211,7 +215,7 @@ const PropertyCard = ({
               </div>
               <div>
                 <span className="block text-[9px] uppercase tracking-wide text-stone-500">Bedrooms</span>
-                <span className="text-xs text-emerald-900 font-bold">{beds}</span>
+                <span className="text-xs text-emerald-900 font-bold">{beds ?? 'Not provided'}</span>
               </div>
             </div>
             <div className="flex items-center gap-2 md:gap-3">
@@ -220,7 +224,7 @@ const PropertyCard = ({
               </div>
               <div>
                 <span className="block text-[9px] uppercase tracking-wide text-stone-500">Bathrooms</span>
-                <span className="text-xs text-emerald-900 font-bold">{baths}</span>
+                <span className="text-xs text-emerald-900 font-bold">{baths ?? 'Not provided'}</span>
               </div>
             </div>
             {carpark && (
@@ -267,28 +271,31 @@ const PropertyCard = ({
               <div className="overflow-y-auto max-h-[90vh] w-full">
                 <div className="relative">
                   {/* Hero Image in Dialog */}
-                  <div 
-                    className="relative h-56 md:h-96 w-full cursor-zoom-in group/dialog-img"
-                    onClick={() => openLightbox(allImages, 0)}
-                  >
-                    <img src={publicAssetUrl(image)} alt={title} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/20 to-transparent"></div>
-                    
-                    {/* Hover Zoom Indicator */}
-                    <div className="absolute inset-0 bg-emerald-950/20 opacity-0 group-hover/dialog-img:opacity-100 transition-opacity flex items-center justify-center z-40">
-                      <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/30">
-                        <ZoomIn size={32} />
+                  {image ? (
+                    <div
+                      className="relative h-56 md:h-96 w-full cursor-zoom-in group/dialog-img"
+                      onClick={() => openLightbox(allImages, 0)}
+                    >
+                      <img src={publicAssetUrl(image)} alt={title} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/20 to-transparent"></div>
+                      <div className="absolute inset-0 bg-emerald-950/20 opacity-0 group-hover/dialog-img:opacity-100 transition-opacity flex items-center justify-center z-40">
+                        <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/30">
+                          <ZoomIn size={32} />
+                        </div>
+                      </div>
+                      <Watermark size="lg" />
+                      <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 z-50">
+                        <Badge className="bg-emerald-500 text-white mb-3 md:mb-4 px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest">
+                          {tag}
+                        </Badge>
+                        <h2 className="text-2xl md:text-5xl font-black text-white tracking-tighter">{title}</h2>
                       </div>
                     </div>
-
-                    <Watermark size="lg" />
-                    <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 z-50">
-                      <Badge className="bg-emerald-500 text-white mb-3 md:mb-4 px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest">
-                        {tag}
-                      </Badge>
-                      <h2 className="text-2xl md:text-5xl font-black text-white tracking-tighter">{title}</h2>
+                  ) : (
+                    <div className="flex h-40 items-center justify-center bg-stone-100 text-sm text-stone-500 md:h-56">
+                      Property photo not provided
                     </div>
-                  </div>
+                  )}
 
                   <div className="p-4 sm:p-6 md:p-12 space-y-7 md:space-y-12 bg-white">
                     {/* Quick Stats - Clean Numbers Only for Dialog */}

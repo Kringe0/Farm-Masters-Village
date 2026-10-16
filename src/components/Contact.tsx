@@ -175,7 +175,7 @@ const Contact = () => {
                       required
                       className="w-full h-12 bg-stone-50 border border-stone-200 text-stone-900 focus:ring-2 focus:ring-emerald-800 rounded-lg px-4 outline-none appearance-none text-base"
                     >
-                      <option>Featured 3-Bedroom Home (₱3,500,000)</option>
+                      <option>Farm Masters Village III homes</option>
                       <option>Rowhouse Inner Unit</option>
                       <option>Rowhouse Corner Unit</option>
                       <option>Duplex Unit</option>
