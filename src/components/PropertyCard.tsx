@@ -140,7 +140,7 @@ const PropertyCard = ({
 
   return (
     <>
-      <Card className="group overflow-hidden border border-stone-200 bg-white flex flex-col h-full transition-all duration-300 hover:shadow-xl hover:shadow-stone-900/5 hover:border-emerald-900/25 rounded-2xl">
+      <Card className="group w-full min-w-0 overflow-hidden border border-stone-200 bg-white flex flex-col h-full transition-all duration-300 hover:shadow-xl hover:shadow-stone-900/5 hover:border-emerald-900/25 rounded-2xl">
         {/* Image Section */}
         {image ? <button
           type="button"
